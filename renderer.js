@@ -109,6 +109,7 @@ function crc16MODBUS(string){
 
 // fullfiling buffer before sending AND sending
 function pushing(ref, wc) {
+
     ref = parseInt(ref, 10);
     wc = parseInt(wc, 10);
     console.log(ref, wc);
@@ -116,6 +117,7 @@ function pushing(ref, wc) {
     crc16MODBUS(defaultBuf);
     port.write(defaultBuf, 'hex');
     console.log('Written: ' + defaultBuf.toString('hex'));
+    
 }
 
 
@@ -151,26 +153,28 @@ btnC.addEventListener('click', () => {
     response.value = '';
 })
 
+
 // sending data if 'Enter' pressed
 requestWC.addEventListener('keydown', function(e) {
     
     if (e.code == 'Enter') {
-            e.preventDefault();
-            sendToSerial(requestR.value, requestWC.value);
-            requestR.value = '';
-            requestWC.value = '';
-        }
-        
+        e.preventDefault();
+        sendToSerial(requestR.value, requestWC.value);
+        requestR.value = '';
+        requestWC.value = '';
     }
-)
+        
+})
 
 
 
 
 // catching data and printing result
 port.on('data', (data) => {
+
     response.value += data.toString('hex') + '\n';
     console.log('catch info');
+
 })
 
 
