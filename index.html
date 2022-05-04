@@ -5,13 +5,33 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
     <link href="./styles.css" rel="stylesheet">
-    <title>Hello World!</title>
+    <title>Test App</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <div class="workTable">
+        <h3>Read registers at 1</h3>
+      <textarea class="output" rows="1" cols="30" id="incomingData"></textarea>
+      </br>
+      <input class="input" id="inputTextR" placeholder="Reference">
+      <input class="input" id="inputTextWC" placeholder="WC">
+        </br>
+        </br>
+      <input class="button" id="buttonS" type="submit" name="button" value="Send"/>
+      <input class="button" id="buttonC" type="submit" name="button" value="Clear"/>
+    </div>
+
+    <!-- <div class="workTable">
+      <h3>Read registers at 1</h3>
+    <textarea class="output" rows="1" cols="30" id="incomingData"></textarea>
+    </br>
+    <input class="input" id="inputTextR" placeholder="Reference">
+    <input class="input" id="inputTextWC" placeholder="WC">
+      </br>
+      </br>
+    <input class="button" id="buttonS" type="submit" name="button" value="Send"/>
+    <input class="button" id="buttonC" type="submit" name="button" value="Clear"/>
+  </div> -->
+      
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
