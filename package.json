@@ -23,6 +23,7 @@
   "dependencies": {
     "mootools": "^1.5.2",
     "node-gyp": "^9.0.0",
-    "serialport": "^10.4.0"
+    "serialport": "^10.4.0",
+    "electron": "^18.2.0"
   }
 }
