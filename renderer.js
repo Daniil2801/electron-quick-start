@@ -10,17 +10,58 @@
 
 // initialization
 
-let requestR = document.getElementById('inputTextR');
-let requestWC = document.getElementById('inputTextWC')
-let response = document.getElementById('incomingData');
-let btnS = document.getElementById('buttonS');
-let btnC = document.getElementById('buttonC');
+// let btnC = document.getElementById('buttonC');
+// let sendWC = document.getElementById('sendWordCount');
+// let sendBC = document.getElementById('sendByteCount');
+// let sendWC2 = document.getElementById('sendWordCount2');
+// let sendBC2 = document.getElementById('sendByteCount2');
 
-let defaultBufX = new Uint8Array([0x01, 0x03, 0x00]);     // arrayLike object
-let defaultBuf = Array.from(defaultBufX);                 // array
+let readButton1 = document.getElementById('buttonS');
+let readButton2 = document.getElementById('buttonS2');
+let readButton3 = document.getElementById('buttonS3');
+let readButton4 = document.getElementById('buttonS4');
+let btnRefresh = document.getElementById('buttonRefresh');
+let btnRefresh2 = document.getElementById('buttonRefresh2');
+let btnRefresh3 = document.getElementById('buttonRefresh3');
+let btnRefresh4 = document.getElementById('buttonRefresh4');
+let sendValues = document.getElementById('sendValues');
+let sendValues2 = document.getElementById('sendValues2');
+let sendValues3 = document.getElementById('sendValues3');
+let sendRef = document.getElementById('inputReference');
+let sendRef2 = document.getElementById('inputReference2');
+let sendRef3 = document.getElementById('inputReference3');
+let sendButton1 = document.getElementById('sendRequestSensors');
+let sendButton2 = document.getElementById('sendRequestSensors2');
+let sendButton3 = document.getElementById('sendRequestSensors3');
+let fPVOM = document.getElementById('freqPVOM');
+let fZVOM = document.getElementById('freqZVOM');
+let fEngine = document.getElementById('freqEngine');
+let fKP = document.getElementById('freqKP');
+let sensorValues = document.querySelectorAll('.sensorValues');
+let press = document.querySelectorAll('.press');
+let dataValue2 = document.querySelectorAll('.descrData');
+let varReadOnly = document.querySelectorAll('.varReadOnly');
+let responseToWriting = document.querySelectorAll('.response');
+let shimValues = document.querySelectorAll('.shimValues');
+let shimFreqResponse = document.querySelectorAll('.shimFreqResponse');
+let checkBox = document.querySelectorAll('.checkBox');
+let sensorValues1Result = document.querySelectorAll('.sensorValues1Result');
+let sensorValuesResult6 = document.querySelectorAll('.sensorValuesResult6');
 
+
+let defaultBufReadA = new Uint8Array([0x01, 0x03, 0x00, 0x00, 0x00, 0x01]);     // arrayLike object
+let defaultBufWriteA = new Uint8Array([0x01, 0x10, 0x00, 0x00, 0x00, 0x01, 0x02]);
+let defaultBufReadACPU2 = new Uint8Array([0x02, 0x03, 0x00, 0x00, 0x00, 0x01]);
+let defaultBufWriteACPU2 = new Uint8Array([0x02, 0x10, 0x00, 0x00, 0x00, 0x01, 0x02]);
+let defaultBufRead = Array.from(defaultBufReadA);                 // array
+let defaultBufWrite = Array.from(defaultBufWriteA);
+let defaultBufReadCPU2 = Array.from(defaultBufReadACPU2);
+let defaultBufWriteCPU2 = Array.from(defaultBufWriteACPU2);
+
+
+
+const { Chart } = require("chart.js");
 const { SerialPort } = require("serialport");
-const { ReadlineParser } = require('serialport');
 
 // const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
 var port = new SerialPort({
@@ -30,6 +71,155 @@ var port = new SerialPort({
     parity: 'none'
 });
 
+
+
+
+function firstRead1(buf) {
+
+    let j = 0;
+
+    for ( let i = 1; i < 8; i++) {
+        setTimeout(function() {
+            let address = parseInt(i, 10);
+            buf[3] = address;
+            crc16MODBUS(buf);
+            console.log(buf); 
+            port.write(buf, 'hex');
+            clearBuf(buf);
+        }, i * 150);
+    }
+
+    return j;
+
+}
+
+function firstRead2(buf) {
+
+    let j = 7;
+
+    for ( let i = 8; i < 18; i++) {
+        setTimeout(function() {
+            let address = parseInt(i, 10);
+            buf[3] = address;
+            crc16MODBUS(buf);
+            console.log(buf); 
+            port.write(buf, 'hex');
+            clearBuf(buf);
+        }, (i-7) * 150);
+    }
+
+    return j;
+}
+
+function firstRead3(buf) {
+    
+    let j = 17;
+
+    for ( let i = 18; i < 49; i++) {
+        setTimeout(function() {
+            let address = parseInt(i, 10);
+            buf[3] = address;
+            crc16MODBUS(buf);
+            console.log(buf); 
+            port.write(buf, 'hex');
+            clearBuf(buf);
+        }, (i-17) * 150);
+    }
+
+    return j;
+}
+
+function firstRead4(buf) {
+    let j = 60;
+
+    for ( let i = 1; i < 49; i++) {
+        setTimeout(function() {
+            let address = parseInt(i, 10);
+            buf[3] = address;
+            crc16MODBUS(buf);
+            console.log(buf); 
+            port.write(buf, 'hex');
+            clearBuf(buf);
+        }, i * 150);
+    }
+
+    return j;
+}
+
+
+function writingRegister(buf, ref, value) {
+
+    buf[3] = parseInt(ref, 10);
+    // wc = parseInt(wc, 10);
+    // bc = parseInt(bc, 10);
+    // buf.push(wc, bc);
+    let i = 0;
+    let counter = value.length;
+    // console.log(counter);
+    
+    switch(counter) {
+        case 1:
+            value = '000' + value;
+            counter = 4;
+            console.log(value);
+            break;
+        case 2:
+            value = '00' + value;
+            counter = 4;
+            console.log(value);
+            break;
+        case 3:
+            value = '0' + value;
+            counter = 4;
+            console.log(value);
+            break;
+    }
+
+    while ( counter > 0 ) {
+        let byte;
+        if ( (buf[0] == 1) && (buf[3] == 1 || buf[3] == 6 || buf[3] == 7)) {
+            byte = value.slice(i, i+8);
+            byte = parseInt(byte, 2);
+            counter = counter - 8;
+            i = i + 8;
+        } else if ( (buf[0] == 1) && ( buf[3] == 2 || buf[3] == 3 || buf[3] == 4 || buf[3] == 5) && value == '0000') {
+            responseToWriting[0].value = 'Не допустимо';
+            responseToWriting[0].style.color = 'red';
+            setTimeout( function() {
+                responseToWriting[0].value = '';
+                responseToWriting[0].style.color = 'black';
+            }, 3000);
+            return;
+        } else {
+            byte = value.slice(i, i+2);
+            byte = parseInt(byte, 10);
+            counter = counter - 2;
+            i = i + 2;
+        }
+        buf.push(byte);
+        console.log(byte);
+    }
+    crc16MODBUS(buf);
+    port.write(buf, 'hex');
+    console.log(buf);
+    clearBufWriter(buf);
+    console.log(buf);
+
+}
+
+
+// clearing buffer
+function clearBufWriter(buf) {
+    while ( buf.length > 7 ) {
+        buf.pop();
+    }
+}
+
+function clearBuf(buf) {
+    for (let j = 0; j < 2; j++) {
+        buf.pop();
+    }
+}
 
 
 
@@ -99,82 +289,623 @@ function crc16MODBUS(string){
     crcHi.toString(10);
     // console.log(crcLo);
     // console.log(crcHi);
-    defaultBuf.push(crcHi);
-    defaultBuf.push(crcLo);
+    string.push(crcHi);
+    string.push(crcLo);
 
-    return defaultBuf;
+    return string;
 }
 
 
-
-// fullfiling buffer before sending AND sending
-function pushing(ref, wc) {
-
-    ref = parseInt(ref, 10);
-    wc = parseInt(wc, 10);
-    console.log(ref, wc);
-    defaultBuf.push(ref, 0x00, wc);
-    crc16MODBUS(defaultBuf);
-    port.write(defaultBuf, 'hex');
-    console.log('Written: ' + defaultBuf.toString('hex'));
-    
-}
+function refresh() {
 
 
-// clearing buffer
-function clearBuf() {
-    for (let i = 0; i < 5; i++) {
-        defaultBuf.pop();
+    if ( sensorValues[0].value[0] == 0 ) {
+        sensorValues1Result[0].innerHTML = '1. ППВМ: нет';
+    } else if ( sensorValues[0].value[0] == 1 ) {
+        sensorValues1Result[0].innerHTML = '1. ППВМ: есть';
+    } else {
+        sensorValues1Result[0].innerHTML = '1. ППВМ: No info';
     }
-}
 
-
-// switch for any case to read
-function sendToSerial(ref, wc){
-
-    pushing(ref, wc);
-    clearBuf();
-
-}
-
-
-
-
-
-
-// button for sending requests
-btnS.addEventListener('click', () => {
-    sendToSerial(requestR.value, requestWC.value);
-    requestR.value = '';
-    requestWC.value = '';
-});
-
-btnC.addEventListener('click', () => {
-    response.value = '';
-})
-
-
-// sending data if 'Enter' pressed
-requestWC.addEventListener('keydown', function(e) {
-    
-    if (e.code == 'Enter') {
-        e.preventDefault();
-        sendToSerial(requestR.value, requestWC.value);
-        requestR.value = '';
-        requestWC.value = '';
+    if ( sensorValues[0].value[1] == 0 ) {
+        sensorValues1Result[1].innerHTML = 'БДЗМ: нет';
+    } else if ( sensorValues[0].value[1] == 1 ) {
+        sensorValues1Result[1].innerHTML = 'БДЗМ: есть';
+    } else {
+        sensorValues1Result[1].innerHTML = 'БДЗМ: No info';
     }
-        
-})
 
+    if ( sensorValues[0].value[2] == 0 ) {
+        sensorValues1Result[2].innerHTML = 'ПВОМ: нет';
+    } else if ( sensorValues[0].value[2] == 1 ) {
+        sensorValues1Result[2].innerHTML = 'ПВОМ: есть';
+    } else {
+        sensorValues1Result[2].innerHTML = 'ПВОМ: No info';
+    }
+
+    if ( sensorValues[0].value[3] == 0 ) {
+        sensorValues1Result[3].innerHTML = 'ЗВОМ: нет';
+    } else if ( sensorValues[0].value[3] == 1 ) {
+        sensorValues1Result[3].innerHTML = 'ЗВОМ: есть';
+    } else {
+        sensorValues1Result[3].innerHTML = 'ЗВОМ:No info';
+    }
+
+    if ( sensorValues[0].value[4] == 0 ) {
+        sensorValues1Result[4].innerHTML = 'РКП: нет';
+    } else if ( sensorValues[0].value[4] == 1 ) {
+        sensorValues1Result[4].innerHTML = 'РКП: есть';
+    } else {
+        sensorValues1Result[4].innerHTML = 'РКП: No info';
+    }
+
+    if ( sensorValues[0].value[5] == 0 ) {
+        sensorValues1Result[5].innerHTML = 'КП: нет';
+    } else if ( sensorValues[0].value[5] == 1 ) {
+        sensorValues1Result[5].innerHTML = 'КП: есть';
+    } else {
+        sensorValues1Result[5].innerHTML = 'КП: No info';
+    }
+
+    if ( sensorValues[0].value[6] == 1 ) {
+        sensorValues1Result[6].innerHTML = 'Тип КП: 4-х ступенчатая';
+    } else if ( sensorValues[0].value[6] == 0 ) {
+        sensorValues1Result[6].innerHTML = 'Тип КП: 6-ти ступенчатая';
+    } else {
+        sensorValues1Result[6].innerHTML = 'Тип КП: No info';
+    }
+
+    if ( sensorValues[0].value[7] == 1 && sensorValues[0].value[8] == 1) {
+        sensorValues1Result[7].innerHTML = 'Параметр жидкости (вход 1): нет датчика';
+    } else if ( sensorValues[0].value[7] == 0 && sensorValues[0].value[8] == 1 ) {
+        sensorValues1Result[7].innerHTML = 'Параметр жидкости (вход 1): замыкание на минус';
+    } else if ( sensorValues[0].value[7] == 1 && sensorValues[0].value[8] == 0 ) {
+        sensorValues1Result[7].innerHTML = 'Параметр жидкости (вход 1): размыкание минуса';
+    } else {
+        sensorValues1Result[7].innerHTML = 'Параметр жидкости (вход 1): No info';
+    }
+
+    if ( sensorValues[0].value[9] == 1 && sensorValues[0].value[10] == 1) {
+        sensorValues1Result[8].innerHTML = 'Параметр жидкости (вход 2): нет датчика';
+    } else if ( sensorValues[0].value[9] == 0 && sensorValues[0].value[10] == 1 ) {
+        sensorValues1Result[8].innerHTML = 'Параметр жидкости (вход 2): замыкание на минус';
+    } else if ( sensorValues[0].value[9] == 1 && sensorValues[0].value[10] == 0 ) {
+        sensorValues1Result[8].innerHTML = 'Параметр жидкости (вход 2): размыкание минуса';
+    } else {
+        sensorValues1Result[8].innerHTML = 'Параметр жидкости (вход 2): No info';
+    }
+
+    if ( sensorValues[0].value[11] == 1 && sensorValues[0].value[12] == 1) {
+        sensorValues1Result[9].innerHTML = 'Параметр жидкости (вход 3): нет датчика';
+    } else if ( sensorValues[0].value[11] == 0 && sensorValues[0].value[12] == 1 ) {
+        sensorValues1Result[9].innerHTML = 'Параметр жидкости (вход 3): замыкание на минус';
+    } else if ( sensorValues[0].value[11] == 1 && sensorValues[0].value[12] == 0 ) {
+        sensorValues1Result[9].innerHTML = 'Параметр жидкости (вход 3): размыкание минуса';
+    } else {
+        sensorValues1Result[9].innerHTML = 'Параметр жидкости (вход 3): No info';
+    }
+
+    if ( sensorValues[0].value[13] == 1 && sensorValues[0].value[14] == 1 ) {
+        sensorValues1Result[10].innerHTML = 'Параметр жидкости (вход 4): нет датчика';
+    } else if ( sensorValues[0].value[13] == 0 && sensorValues[0].value[14] == 1 ) {
+        sensorValues1Result[10].innerHTML = 'Параметр жидкости (вход 4): замыкание на минус';
+    } else if ( sensorValues[0].value[13] == 1 && sensorValues[0].value[14] == 0 ) {
+        sensorValues1Result[10].innerHTML = 'Параметр жидкости (вход 4): размыкание минуса';
+    } else {
+        sensorValues1Result[10].innerHTML = 'Параметр жидкости (вход 4): No info';
+    }
+
+
+
+    let freqPVOM = sensorValues[1].value.slice(0, 4);
+    if ( freqPVOM == '255255' ) {
+        fPVOM.innerHTML = 'Нет датчика';
+    } else if ( freqPVOM == '0000' ) {
+        fPVOM.innerHTML = 'Не допустимо';
+    } else {
+        fPVOM.innerHTML = freqPVOM;
+    }
+
+
+
+    let freqZVOM = sensorValues[2].value.slice(0, 4);
+    if ( freqZVOM == '255255' ) {
+        fZVOM.innerHTML = 'Нет датчика';
+    } else if ( freqZVOM == '0000' ) {
+        fZVOM.innerHTML = 'Не допустимо';
+    } else {
+        fZVOM.innerHTML = freqZVOM;
+    }
+
+
+
+    let freqEngine = sensorValues[3].value.slice(0, 4);
+    if ( freqEngine == '255255' ) {
+        fEngine.innerHTML = 'Нет датчика';
+    } else if ( freqEngine == '0000' ) {
+        fEngine.innerHTML = 'Не допустимо';
+    } else {
+        fEngine.innerHTML = freqEngine;
+    }
+
+
+
+    let freqKP = sensorValues[4].value.slice(0, 4);
+    if ( freqKP == '2552' ) {
+        fKP.innerHTML = 'Нет датчика';
+    } else if ( freqKP == '0000' ) {
+        fKP.innerHTML = 'Не допустимо';
+    } else {
+        fKP.innerHTML = freqKP;
+    }
+
+
+
+    if ( sensorValues[5].value[0] == 0 ) {
+        sensorValuesResult6[0].innerHTML = 'Датчик угла поворота 13: нет';
+    } else if ( sensorValues[5].value[0] == 1 ) {
+        sensorValuesResult6[0].innerHTML = 'Датчик угла поворота 13: есть';
+    } else {
+        sensorValuesResult6[0].innerHTML = 'Датчик угла поворота 13: No info';
+    }
+
+    if ( sensorValues[5].value[1] == 0 ) {
+        sensorValuesResult6[1].innerHTML = 'Датчик угла поворота 25: нет';
+    } else if ( sensorValues[5].value[1] == 1 ) {
+        sensorValuesResult6[1].innerHTML = 'Датчик угла поворота 25: есть';
+    } else {
+        sensorValuesResult6[1].innerHTML = 'Датчик угла поворота 25: No info';
+    }
+
+    if ( sensorValues[5].value[2] == 0 ) {
+        sensorValuesResult6[2].innerHTML = 'Датчик правой педали тормоза: нет';
+    } else if ( sensorValues[5].value[2] == 1 ) {
+        sensorValuesResult6[2].innerHTML = 'Датчик правой педали тормоза: есть';
+    } else {
+        sensorValuesResult6[2].innerHTML = 'Датчик правой педали тормоза: No info';
+    }
+
+    if ( sensorValues[5].value[3] == 0 ) {
+        sensorValuesResult6[3].innerHTML = 'Датчик левой педали тормоза: нет';
+    } else if ( sensorValues[5].value[3] == 1 ) {
+        sensorValuesResult6[3].innerHTML = 'Датчик левой педали тормоза: есть';
+    } else {
+        sensorValuesResult6[3].innerHTML = 'Датчик ловой педали тормоза: No info';
+    }
+
+    if ( sensorValues[5].value[4] == 0 ) {
+        sensorValuesResult6[4].innerHTML = 'Датчик сцепления: нет';
+    } else if ( sensorValues[5].value[4] == 1 ) {
+        sensorValuesResult6[4].innerHTML = 'Датчик сцепления: есть';
+    } else {
+        sensorValuesResult6[4].innerHTML = 'Датчик сцепления: No info';
+    }
+
+    if ( sensorValues[5].value[5] == 0 ) {
+        sensorValuesResult6[5].innerHTML = 'Датчик нейтрали: нет';
+    } else if ( sensorValues[5].value[5] == 1 ) {
+        sensorValuesResult6[5].innerHTML = 'Датчик нейтрали: есть';
+    } else {
+        sensorValuesResult6[5].innerHTML = 'Датчик нейтрали: No info';
+    }
+
+    if ( sensorValues[5].value[6] == 0 ) {
+        sensorValuesResult6[6].innerHTML = 'Кнопка подтормаживания: нет';
+    } else if ( sensorValues[5].value[6] == 1 ) {
+        sensorValuesResult6[6].innerHTML = 'Кнопка подтормаживания: есть';
+    } else {
+        sensorValuesResult6[6].innerHTML = 'Кнопка подтормаживания: No info';
+    }
+
+    if ( sensorValues[5].value[7] == 0 ) {
+        sensorValuesResult6[7].innerHTML = 'Датчик транспортного диапазона: нет';
+    } else if ( sensorValues[5].value[7] == 1 ) {
+        sensorValuesResult6[7].innerHTML = 'Датчик транспортного диапазона: есть';
+    } else {
+        sensorValuesResult6[7].innerHTML = 'Датчик транспортного диапазона: No info';
+    }
+
+
+
+    if ( sensorValues[6].value[0] == 0 ) {
+        press[0].innerHTML = 'Датчик давления 1: нет';
+    } else if ( sensorValues[6].value[0] == 1 ) {
+        press[0].innerHTML = 'Датчик давления 1: есть';
+    } else {
+        press[0].innerHTML = 'Датчик давления 1: No info';
+    }
+
+    if ( sensorValues[6].value[1] == 0 ) {
+        press[1].innerHTML = 'Датчик давления 2: нет';
+    } else if ( sensorValues[6].value[1] == 1 ) {
+        press[1].innerHTML = 'Датчик давления 2: есть';
+    } else {
+        press[1].innerHTML = 'Датчик давления 2: No info';
+    }
+
+    if ( sensorValues[6].value[2] == 0 ) {
+        press[2].innerHTML = 'Датчик давления 3: нет';
+    } else if ( sensorValues[6].value[2] == 1 ) {
+        press[2].innerHTML = 'Датчик давления 3: есть';
+    } else {
+        press[2].innerHTML = 'Датчик давления 3: No info';
+    }
+
+    if ( sensorValues[6].value[3] == 0 ) {
+        press[3].innerHTML = 'Датчик давления 4: нет';
+    } else if ( sensorValues[6].value[3] == 1 ) {
+        press[3].innerHTML = 'Датчик давления 4: есть';
+    } else {
+        press[3].innerHTML = 'Датчик давления 4: No info';
+    }
+
+    if ( sensorValues[6].value[4] == 0 ) {
+        press[4].innerHTML = 'Датчик давления 5: нет';
+    } else if ( sensorValues[6].value[4] == 1 ) {
+        press[4].innerHTML = 'Датчик давления 5: есть';
+    } else {
+        press[4].innerHTML = 'Датчик давления 5: No info';
+    }
+
+    if ( sensorValues[6].value[5] == 0 ) {
+        press[5].innerHTML = 'Датчик давления 6: нет';
+    } else if ( sensorValues[6].value[5] == 1 ) {
+        press[5].innerHTML = 'Датчик давления 6: есть';
+    } else {
+        press[5].innerHTML = 'Датчик давления 6: No info';
+    }
+
+    if ( sensorValues[6].value[6] == 0 ) {
+        press[6].innerHTML = 'Датчик давления 7: нет';
+    } else if ( sensorValues[6].value[6] == 1 ) {
+        press[6].innerHTML = 'Датчик давления 7: есть';
+    } else {
+        press[6].innerHTML = 'Датчик давления 7: No info';
+    }
+
+    if ( sensorValues[6].value[7] == 0 ) {
+        press[7].innerHTML = 'Датчик давления 8: нет';
+    } else if ( sensorValues[6].value[0] == 1 ) {
+        press[7].innerHTML = 'Датчик давления 8: есть';
+    } else {
+        press[7].innerHTML = 'Датчик давления 8: No info';
+    }
+
+    if ( sensorValues[6].value[8] == 0 ) {
+        press[8].innerHTML = 'Датчик давления 9: нет';
+    } else if ( sensorValues[6].value[0] == 1 ) {
+        press[8].innerHTML = 'Датчик давления 9: есть';
+    } else {
+        press[8].innerHTML = 'Датчик давления 9: No info';
+    }
+
+    if ( sensorValues[6].value[9] == 0 ) {
+        press[9].innerHTML = 'Датчик давления 10: нет';
+    } else if ( sensorValues[6].value[9] == 1 ) {
+        press[9].innerHTML = 'Датчик давления 10: есть';
+    } else {
+        press[9].innerHTML = 'Датчик давления 10: No info';
+    }
+
+}
+
+
+function refreshData() {
+
+    for (let i = 0; i < 10; i++) {
+
+        if ( sensorValues[i+7].value != '' ) {
+            dataValue2[i].innerHTML = sensorValues[i+7].value;
+        } else {
+            dataValue2[i].innerHTML = 'No info';
+        }
+
+    }
+
+}
+
+function refreshReadOnly() {
+
+    for (let i = 0; i < 30; i++) {
+
+        if ( sensorValues[i+17].value != '' ) {
+            varReadOnly[i].innerHTML = sensorValues[i+17].value;
+        } else {
+            varReadOnly[i].innerHTML = 'No info';
+        }
+
+    }
+
+}
+
+function refreshShim() {
+
+    for (let i = 0; i < 48; i++) {
+
+        if ( shimValues[i].value != '' ) {
+            shimFreqResponse[i].innerHTML = shimValues[i].value;
+        } else {
+            shimFreqResponse[i].innerHTML = 'No info';
+        }
+
+    }
+
+}
 
 
 
 // catching data and printing result
-port.on('data', (data) => {
+let answerSTR
+function decoder(string) {
 
-    response.value += data.toString('hex') + '\n';
-    console.log('catch info');
+    let i = 0;
+    let counter = string.length;
+    let answer = [];
+    while ( counter > 0 ) {
+        answer.push(string.slice(i, i+2));
+        i = i + 2;
+        counter = counter - 2;
+    }
 
+    for ( let z = 0; z < answer.length; z++ ) {
+        answer[z] = parseInt(answer[z], 16);
+        if ( answer[z] < 10 ) {
+            answer[z] = '0' + answer[z];
+        }
+    }
+
+    console.log(answer);
+    console.log(answer.join(''));
+    answerSTR = answer.join('');
+
+    if ( answerSTR == 255255 ) {
+        answerSTR = 'Нет датчика';
+    }
+
+    return answerSTR;
+
+}
+
+
+function decoderToBinary(string, l) {
+
+    let i = 0;
+    let counter = string.length;
+    let answer = [];
+    while ( counter > 0 ) {
+        answer.push(string.slice(i, i+2));
+        i = i + 2;
+        counter = counter - 2;
+    }
+
+    for ( let z = 0; z < answer.length; z++) {
+        answer[z] = parseInt(answer[z], 16);
+        answer[z] = answer[z].toString(2);
+    }
+
+    console.log(answer);
+    console.log(answer.join(''));
+    answerSTR = answer.join('').slice(0, l);
+
+    return answerSTR;
+
+}
+
+function checkBoxesSwitch(time) {
+
+    checkBox[0].checked = false;
+    checkBox[1].checked = false;
+    checkBox[2].checked = false;
+    checkBox[3].checked = false;
+    setTimeout( function() {
+        checkBox[0].checked = true;
+        checkBox[1].checked = true;
+        checkBox[2].checked = true;
+        checkBox[3].checked = true;
+    }, time);
+
+}
+
+
+
+
+
+for (let c = 0; c < checkBox.length; c++) {
+    checkBox[c].addEventListener('click', (e) => {
+        e.preventDefault();
+    });
+}
+
+
+// button for sending requests
+readButton1.addEventListener('click', () => {
+    j = 0;
+    firstRead1(defaultBufRead);
+    checkBoxesSwitch(1600);
+    return j;
+});
+
+readButton2.addEventListener('click', () => {
+    j = 7;
+    firstRead2(defaultBufRead);
+    checkBoxesSwitch(1800);
+    return j;
+});
+
+readButton3.addEventListener('click', () => {
+    j = 17;
+    firstRead3(defaultBufRead);
+    checkBoxesSwitch(5000);
+    return j;
+});
+
+readButton4.addEventListener('click', () => {
+    j = 60;
+    jj = 60;
+    firstRead4(defaultBufReadCPU2);
+    checkBoxesSwitch(7500);
+    return j, jj;
 })
 
 
+
+btnRefresh.addEventListener('click', () => {
+    refresh();
+});
+
+btnRefresh2.addEventListener('click', () => {
+    refreshData();
+});
+
+btnRefresh3.addEventListener('click', () => {
+    refreshReadOnly();
+});
+
+btnRefresh4.addEventListener('click', () => {
+    refreshShim();
+});
+
+
+
+sendButton1.addEventListener('click', () => {
+
+    if ( sendRef.value > 0 && sendRef.value < 8 ) {
+        j = 49;
+        writingRegister(defaultBufWrite, sendRef.value, sendValues.value);
+    } else {
+        sendRef.value = 'Error';
+        sendRef.style.color = 'red';
+    }
+    
+    return j;
+
+});
+
+sendButton2.addEventListener('click', () => {
+
+    if ( sendRef2.value > 7 && sendRef2.value < 18) {
+        j = 50;
+        writingRegister(defaultBufWrite, sendRef2.value, sendValues2.value);
+    } else {
+        sendRef2.value = 'Error';
+        sendRef2.style.color = 'red';
+    }
+
+    return j;
+    
+});
+
+sendButton3.addEventListener('click', () => {
+
+    if ( sendRef3.value > 0 && sendRef3.value < 49 ) {
+        j = 51;
+        writingRegister(defaultBufWriteCPU2, sendRef3.value, sendValues3.value);
+    } else {
+        sendRef3.value = 'Error';
+        sendRef3.style.color = 'red';
+    }
+
+});
+
+
+sendRef.addEventListener('click', () => {
+    sendRef.value = '';
+    sendRef.style.color = 'black';
+});
+
+sendRef2.addEventListener('click', () => {
+    sendRef2.value = '';
+    sendRef2.style.color = 'black';
+});
+
+sendRef3.addEventListener('click', () => {
+    sendRef3.value = '';
+    sendRef3.style.color = 'black';
+});
+
+
+// 
+
+
+let j = 0;
+let jj = 60;
+let l;
+port.on('data', function (data) {
+    console.log(j);
+
+    switch(j) {
+        case 0:
+            console.log(data.toString('hex'));
+            l = 16;
+            decoderToBinary(data.toString('hex').slice(6, 10), l);
+            sensorValues[j].value = answerSTR;
+            j = j + 1;
+            break;
+        case 5:
+            console.log(data.toString('hex'));
+            l = 8;
+            decoderToBinary(data.toString('hex').slice(6, 10), l);
+            sensorValues[j].value = answerSTR;
+            j = j + 1;
+            break;
+        case 6:
+            console.log(data.toString('hex'));
+            l = 10;
+            decoderToBinary(data.toString('hex').slice(6, 10), l);
+            sensorValues[j].value = answerSTR;
+            j = j + 1;
+            break;
+        case 49:
+            console.log(data.toString('hex'));
+            responseToWriting[0].value = data.toString('hex');
+            break;
+        case 50:
+            console.log(data.toString('hex'));
+            responseToWriting[1].value = data.toString('hex');
+            break;
+        // case 51:
+        //     console.log(data.toString('hex'));
+        //     responseToWriting[2].value = data.toString('hex');
+        //     break;
+        case jj:
+            console.log(data.toString('hex'));
+            decoder(data.toString('hex').slice(6, 10));
+            shimValues[j-60].value = answerSTR;
+            j = j + 1;
+            jj = jj +1;
+            break;
+        default:
+            console.log(data.toString('hex'));
+            decoder(data.toString('hex').slice(6, 10));
+            sensorValues[j].value = answerSTR;
+            j = j + 1;
+            break;
+    }
+    
+});
+
+
+
+
+
+
+
+
+let ctx = document.getElementById('myChart').getContext('2d');
+let chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [0, 1, 2, 3, 4, 5],
+        datasets: [{
+            label: 'Chart',
+            backgroundColor: 'black',
+            borderColor: 'green',
+            data: [0, 10, 5, 20, 3, 12],
+            cubicInterpolationMode: 'monotone'
+        }]
+    },
+
+    options: {
+        responsive: false
+    }
+});

@@ -21,9 +21,10 @@
     "electron-rebuild": "^3.2.7"
   },
   "dependencies": {
+    "chart.js": "^3.7.1",
+    "electron": "^18.2.0",
     "mootools": "^1.5.2",
     "node-gyp": "^9.0.0",
-    "serialport": "^10.4.0",
-    "electron": "^18.2.0"
+    "serialport": "^10.4.0"
   }
 }

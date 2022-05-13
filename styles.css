@@ -10,14 +10,230 @@
 
 .output {
     margin: 1px 1px 1px 1px;
+    width: 254px;
 }
 
 .button {
-    float: left;
+    /* float: left; */
     margin: 1px 1px 1px 1px;
     padding: 0 47px 0 47px;
 }
 
+.buttons {
+    float: none;
+}
+
 .workTable {
     float: left;
+}
+
+.sensors {
+    float: none;
+    border: 2px solid black;
+    border-radius: 7px;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
+    width: 1520px;
+    height: 580px;
+    position: absolute;
+}
+
+.data {
+    float: none;
+    border: 2px solid black;
+    border-radius: 7px;
+    width: 400px;
+    margin-left: 5px;
+    position: absolute;
+    top: +610px;
+}
+
+.dataValues {
+    border: 1px solid black;
+    margin: 3px 3px 3px 3px;
+    padding: 2px 2px 2px 2px;
+}
+
+.readOnly {
+    float: left;
+    border: 2px solid black;
+    border-radius: 7px;
+    width: 1125px;
+    /* position: static; */
+}
+
+.readOnlyValues {
+    float: none;
+    border: 1px solid black;
+    margin: 3px 3px 3px 3px;
+    padding: 2px 2px 2px 2px;
+}
+
+.readOnlyFreqValues {
+    float: left;
+}
+
+.readOnlyCPUValues1 {
+    float: left;
+}
+
+.readOnlyCPUValues2 {
+    float: left;
+}
+
+.readOnlyRest {
+    float: left;
+}
+
+.sensorValues, .shimValues {
+    /* float: left; */
+    margin: 5px 5px 0 5px;
+}
+
+.header {
+    text-align: center;
+}
+
+.descr {
+    float: none;
+}
+
+.discretSensor {
+    float: left;
+    width: 200px;
+    margin: 5px 5px 5px 5px;
+    padding: 2px 2px 2px 2px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.sensorFields {
+    float: none;
+}
+
+.inputSensor {
+    float: left;
+    border: 3px solid green;
+    border-radius: 3px;
+    margin: 15px 5px 15px 5px;
+    padding: 3px 3px 3px 3px;
+}
+
+#CPU2 {
+    float: none;
+    border: 3px solid green;
+    border-radius: 3px;
+    margin: 15px 5px 15px 5px;
+    padding: 3px 3px 3px 3px;
+    width: 590px;
+    text-align: center;
+}
+
+.response {
+    margin: 5px 0 5px 0;
+}
+
+#h4 {
+    margin-bottom: 0px;
+}
+
+#h6, #h66, #h666, #h6666 {
+    float: none;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+#inputValues {
+    margin: 5px 5px 5px 5px;
+}
+
+#sendRequestSensors {
+    margin: 5px 5px 5px 5px;
+}
+
+.sensorInput {
+    width: 20px;
+    margin: 2px 2px 2px 2px;
+}
+
+#sendValues {
+    width: 150px;
+}
+
+#sendValues2, #sendValues3 {
+    width: 150px;
+}
+
+#inputReference {
+    width: 70px;
+}
+
+#inputReference2, #inputReference3 {
+    width: 70px;
+}
+
+.hr {
+    position: absolute;
+    width: 1600px;
+    height: 5px;
+    color: black;
+    background-color: black;
+}
+
+.allShim {
+    position: absolute;
+    top: +2200px;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 1150px;
+    float: left;
+}
+
+.shimFreqValues {
+    border: 1px solid black;
+    float: none;
+    margin: 3px 3px 3px 3px;
+}
+
+.shimFreq {
+    float: left;
+    margin: 7px 7px 7px 7px;
+}
+
+.maxShimCurrent {
+    float: left;
+    margin: 7px 7px 7px 7px;
+}
+
+.maxShimCurrentValues {
+    border: 1px solid black;
+    margin: 3px 3px 3px 3px;
+}
+
+.shimLaw {
+    float: left;
+    margin: 7px 7px 7px 7px;
+}
+
+.shimLawValues {
+    border: 1px solid black;
+    margin: 3px 3px 3px 3px;
+}
+
+.checkBox {
+    margin-left: 20px;
+}
+
+.shimLines {
+    width: 1000px;
+    height: 1000px;
+    position: absolute;
+    top: +4450px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+#myChart {
+    width: 200px;
+    height: 200px;
 }
