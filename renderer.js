@@ -16,23 +16,17 @@
 // let sendWC2 = document.getElementById('sendWordCount2');
 // let sendBC2 = document.getElementById('sendByteCount2');
 
-let readButton1 = document.getElementById('buttonS');
-let readButton2 = document.getElementById('buttonS2');
-let readButton3 = document.getElementById('buttonS3');
-let readButton4 = document.getElementById('buttonS4');
-let btnRefresh = document.getElementById('buttonRefresh');
-let btnRefresh2 = document.getElementById('buttonRefresh2');
-let btnRefresh3 = document.getElementById('buttonRefresh3');
-let btnRefresh4 = document.getElementById('buttonRefresh4');
+let buttonCOM = document.getElementById('buttonCOM');
+let inputSerial = document.getElementById('serial');
+let readButtons = document.querySelectorAll('.buttonRead');
+let btnRefresh = document.querySelectorAll('.buttonRefresh');
 let sendValues = document.getElementById('sendValues');
 let sendValues2 = document.getElementById('sendValues2');
 let sendValues3 = document.getElementById('sendValues3');
 let sendRef = document.getElementById('inputReference');
 let sendRef2 = document.getElementById('inputReference2');
 let sendRef3 = document.getElementById('inputReference3');
-let sendButton1 = document.getElementById('sendRequestSensors');
-let sendButton2 = document.getElementById('sendRequestSensors2');
-let sendButton3 = document.getElementById('sendRequestSensors3');
+let buttonSendValue = document.querySelectorAll('.buttonSendValue');
 let fPVOM = document.getElementById('freqPVOM');
 let fZVOM = document.getElementById('freqZVOM');
 let fEngine = document.getElementById('freqEngine');
@@ -47,16 +41,19 @@ let shimFreqResponse = document.querySelectorAll('.shimFreqResponse');
 let checkBox = document.querySelectorAll('.checkBox');
 let sensorValues1Result = document.querySelectorAll('.sensorValues1Result');
 let sensorValuesResult6 = document.querySelectorAll('.sensorValuesResult6');
+let buttonPageRead = document.getElementById('pageRead');
 
 
 let defaultBufReadA = new Uint8Array([0x01, 0x03, 0x00, 0x00, 0x00, 0x01]);     // arrayLike object
 let defaultBufWriteA = new Uint8Array([0x01, 0x10, 0x00, 0x00, 0x00, 0x01, 0x02]);
 let defaultBufReadACPU2 = new Uint8Array([0x02, 0x03, 0x00, 0x00, 0x00, 0x01]);
 let defaultBufWriteACPU2 = new Uint8Array([0x02, 0x10, 0x00, 0x00, 0x00, 0x01, 0x02]);
+let defaultBufReadPageA = new Uint8Array([0x02, 0x06, 0x00, 0x00, 0x00, 0x00]);
 let defaultBufRead = Array.from(defaultBufReadA);                 // array
 let defaultBufWrite = Array.from(defaultBufWriteA);
 let defaultBufReadCPU2 = Array.from(defaultBufReadACPU2);
 let defaultBufWriteCPU2 = Array.from(defaultBufWriteACPU2);
+let defaultBufReadPage = Array.from(defaultBufReadPageA);
 
 
 
@@ -64,12 +61,28 @@ const { Chart } = require("chart.js");
 const { SerialPort } = require("serialport");
 
 // const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+
+
+function blockInput() {
+    for ( let i = 0; i < sensorValues.length; i++ ) {
+        sensorValues[i].setAttribute('readonly', 'readonly');
+    }
+    for (let i = 0; i < shimValues.length; i++ ){
+        shimValues[i].setAttribute('readonly', 'readonly');
+    }
+}
+
+blockInput();
+
+
+
 var port = new SerialPort({
     path: 'COM7',
     baudRate: 57600,
     dataBits: 8,
     parity: 'none'
 });
+
 
 
 
@@ -207,6 +220,14 @@ function writingRegister(buf, ref, value) {
 
 }
 
+function readPage() {
+    defaultBufReadPage[5] = 1;
+    crc16MODBUS(defaultBufReadPage);
+    console.log(defaultBufReadPage); 
+    port.write(defaultBufReadPage, 'hex');
+    clearBuf(defaultBufReadPage);
+}
+
 
 // clearing buffer
 function clearBufWriter(buf) {
@@ -214,6 +235,7 @@ function clearBufWriter(buf) {
         buf.pop();
     }
 }
+
 
 function clearBuf(buf) {
     for (let j = 0; j < 2; j++) {
@@ -397,7 +419,7 @@ function refresh() {
 
 
 
-    let freqPVOM = sensorValues[1].value.slice(0, 4);
+    let freqPVOM = sensorValues[1].value;
     if ( freqPVOM == '255255' ) {
         fPVOM.innerHTML = 'Нет датчика';
     } else if ( freqPVOM == '0000' ) {
@@ -408,7 +430,7 @@ function refresh() {
 
 
 
-    let freqZVOM = sensorValues[2].value.slice(0, 4);
+    let freqZVOM = sensorValues[2].value;
     if ( freqZVOM == '255255' ) {
         fZVOM.innerHTML = 'Нет датчика';
     } else if ( freqZVOM == '0000' ) {
@@ -419,7 +441,7 @@ function refresh() {
 
 
 
-    let freqEngine = sensorValues[3].value.slice(0, 4);
+    let freqEngine = sensorValues[3].value;
     if ( freqEngine == '255255' ) {
         fEngine.innerHTML = 'Нет датчика';
     } else if ( freqEngine == '0000' ) {
@@ -430,7 +452,7 @@ function refresh() {
 
 
 
-    let freqKP = sensorValues[4].value.slice(0, 4);
+    let freqKP = sensorValues[4].value;
     if ( freqKP == '2552' ) {
         fKP.innerHTML = 'Нет датчика';
     } else if ( freqKP == '0000' ) {
@@ -718,28 +740,28 @@ for (let c = 0; c < checkBox.length; c++) {
 
 
 // button for sending requests
-readButton1.addEventListener('click', () => {
+readButtons[0].addEventListener('click', () => {
     j = 0;
     firstRead1(defaultBufRead);
     checkBoxesSwitch(1600);
     return j;
 });
 
-readButton2.addEventListener('click', () => {
+readButtons[1].addEventListener('click', () => {
     j = 7;
     firstRead2(defaultBufRead);
     checkBoxesSwitch(1800);
     return j;
 });
 
-readButton3.addEventListener('click', () => {
+readButtons[2].addEventListener('click', () => {
     j = 17;
     firstRead3(defaultBufRead);
     checkBoxesSwitch(5000);
     return j;
 });
 
-readButton4.addEventListener('click', () => {
+readButtons[3].addEventListener('click', () => {
     j = 60;
     jj = 60;
     firstRead4(defaultBufReadCPU2);
@@ -749,25 +771,26 @@ readButton4.addEventListener('click', () => {
 
 
 
-btnRefresh.addEventListener('click', () => {
+
+btnRefresh[0].addEventListener('click', () => {
     refresh();
 });
 
-btnRefresh2.addEventListener('click', () => {
+btnRefresh[1].addEventListener('click', () => {
     refreshData();
 });
 
-btnRefresh3.addEventListener('click', () => {
+btnRefresh[2].addEventListener('click', () => {
     refreshReadOnly();
 });
 
-btnRefresh4.addEventListener('click', () => {
+btnRefresh[3].addEventListener('click', () => {
     refreshShim();
 });
 
 
 
-sendButton1.addEventListener('click', () => {
+buttonSendValue[0].addEventListener('click', () => {
 
     if ( sendRef.value > 0 && sendRef.value < 8 ) {
         j = 49;
@@ -781,7 +804,7 @@ sendButton1.addEventListener('click', () => {
 
 });
 
-sendButton2.addEventListener('click', () => {
+buttonSendValue[1].addEventListener('click', () => {
 
     if ( sendRef2.value > 7 && sendRef2.value < 18) {
         j = 50;
@@ -795,7 +818,7 @@ sendButton2.addEventListener('click', () => {
     
 });
 
-sendButton3.addEventListener('click', () => {
+buttonSendValue[2].addEventListener('click', () => {
 
     if ( sendRef3.value > 0 && sendRef3.value < 49 ) {
         j = 51;
@@ -806,6 +829,9 @@ sendButton3.addEventListener('click', () => {
     }
 
 });
+
+
+
 
 
 sendRef.addEventListener('click', () => {
@@ -824,7 +850,199 @@ sendRef3.addEventListener('click', () => {
 });
 
 
-// 
+
+
+buttonPageRead.addEventListener('click', () => {
+    j = 52;
+    readPage();
+})
+
+
+
+// buttonCOM.addEventListener('click', () => {
+//     let path = 'COM' + inputSerial.value;
+
+//     var port = new SerialPort({
+//         path: path,
+//         baudRate: 57600,
+//         dataBits: 8,
+//         parity: 'none'
+//     });
+
+//     port.on('open', () => { console.log('Opened ', + port.baudRate + port.path) });
+//     return port;
+// });
+
+
+
+
+
+
+
+let points = [0, 3, 1, 7, 5];
+
+
+// let ctx = document.getElementById('myChart').getContext('2d');
+let graphics1 = document.getElementById('myChart1').getContext('2d');
+let graphics2 = document.getElementById('myChart2').getContext('2d');
+let graphics3 = document.getElementById('myChart3').getContext('2d');
+let graphics4 = document.getElementById('myChart4').getContext('2d');
+let graphics5 = document.getElementById('myChart5').getContext('2d');
+let graphics6 = document.getElementById('myChart6').getContext('2d');
+let graphics7 = document.getElementById('myChart7').getContext('2d');
+let graphics8 = document.getElementById('myChart8').getContext('2d');
+let btnDraw = document.getElementById('draw');
+
+btnDraw.addEventListener('click', () => {
+
+    let chart1 = new Chart(graphics1, {
+        type: 'line',
+        data: {
+        labels: [0, 1, 2, 3, 4, 5],
+        datasets: [{
+            label: 'Chart 1',
+            backgroundColor: 'black',
+            borderColor: 'green',
+            data: points,
+            cubicInterpolationMode: 'monotone'
+            }]
+        },
+
+        options: {
+            responsive: false
+        }
+    });
+
+    let chart2 = new Chart(graphics2, {
+        type: 'line',
+        data: {
+        labels: [0, 1, 2, 3, 4, 5],
+        datasets: [{
+            label: 'Chart 2',
+            backgroundColor: 'black',
+            borderColor: 'green',
+            data: points,
+            cubicInterpolationMode: 'monotone'
+            }]
+        },
+
+        options: {
+            responsive: false
+        }
+    });
+
+    let chart3 = new Chart(graphics3, {
+        type: 'line',
+        data: {
+        labels: [0, 1, 2, 3, 4, 5],
+        datasets: [{
+            label: 'Chart 3',
+            backgroundColor: 'black',
+            borderColor: 'green',
+            data: points,
+            cubicInterpolationMode: 'monotone'
+            }]
+        },
+
+        options: {
+            responsive: false
+        }
+    });
+
+    let chart4 = new Chart(graphics4, {
+        type: 'line',
+        data: {
+        labels: [0, 1, 2, 3, 4, 5],
+        datasets: [{
+            label: 'Chart 4',
+            backgroundColor: 'black',
+            borderColor: 'green',
+            data: points,
+            cubicInterpolationMode: 'monotone'
+            }]
+        },
+
+        options: {
+            responsive: false
+        }
+    });
+
+    let chart5 = new Chart(graphics5, {
+        type: 'line',
+        data: {
+        labels: [0, 1, 2, 3, 4, 5],
+        datasets: [{
+            label: 'Chart 5',
+            backgroundColor: 'black',
+            borderColor: 'green',
+            data: points,
+            cubicInterpolationMode: 'monotone'
+            }]
+        },
+
+        options: {
+            responsive: false
+        }
+    });
+
+    let chart6 = new Chart(graphics6, {
+        type: 'line',
+        data: {
+        labels: [0, 1, 2, 3, 4, 5],
+        datasets: [{
+            label: 'Chart 6',
+            backgroundColor: 'black',
+            borderColor: 'green',
+            data: points,
+            cubicInterpolationMode: 'monotone'
+            }]
+        },
+
+        options: {
+            responsive: false
+        }
+    });
+
+    let chart7 = new Chart(graphics7, {
+        type: 'line',
+        data: {
+        labels: [0, 1, 2, 3, 4, 5],
+        datasets: [{
+            label: 'Chart 7',
+            backgroundColor: 'black',
+            borderColor: 'green',
+            data: points,
+            cubicInterpolationMode: 'monotone'
+            }]
+        },
+
+        options: {
+            responsive: false
+        }
+    });
+
+    let chart8 = new Chart(graphics8, {
+        type: 'line',
+        data: {
+        labels: [0, 1, 2, 3, 4, 5],
+        datasets: [{
+            label: 'Chart 8',
+            backgroundColor: 'black',
+            borderColor: 'green',
+            data: points,
+            cubicInterpolationMode: 'monotone'
+            }]
+        },
+
+        options: {
+            responsive: false
+        }
+    });
+
+})
+
+
+
 
 
 let j = 0;
@@ -863,10 +1081,13 @@ port.on('data', function (data) {
             console.log(data.toString('hex'));
             responseToWriting[1].value = data.toString('hex');
             break;
-        // case 51:
-        //     console.log(data.toString('hex'));
-        //     responseToWriting[2].value = data.toString('hex');
-        //     break;
+        case 51:
+            console.log(data.toString('hex'));
+            responseToWriting[2].value = data.toString('hex');
+            break;
+        case 52:
+            console.log(data.toString('hex'));
+            break;
         case jj:
             console.log(data.toString('hex'));
             decoder(data.toString('hex').slice(6, 10));
@@ -882,30 +1103,4 @@ port.on('data', function (data) {
             break;
     }
     
-});
-
-
-
-
-
-
-
-
-let ctx = document.getElementById('myChart').getContext('2d');
-let chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [0, 1, 2, 3, 4, 5],
-        datasets: [{
-            label: 'Chart',
-            backgroundColor: 'black',
-            borderColor: 'green',
-            data: [0, 10, 5, 20, 3, 12],
-            cubicInterpolationMode: 'monotone'
-        }]
-    },
-
-    options: {
-        responsive: false
-    }
 });

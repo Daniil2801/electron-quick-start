@@ -9,99 +9,119 @@
   </head>
   <body>
 
+    <div class="portInit">
+      <h5 id="h6666666666">Инициализация COM-порта</h6>
+      <input class="serial" id="serial" placeholder="Номер порта">
+      <button class="button" id="buttonCOM">Open</button>
+    </div>
+
     <div class="sensors">
 
       <h4 class="header">Показания датчиков</h4>
 
-      <button class="button" id="buttonS">Read registers 1-7</button>
-      <button class="button" id="buttonRefresh">Refresh</button>
-      <input class="checkBox" id="check1" type="checkbox" checked>
-      <label for="check1">Ready to read</label>
+      
+
+      <div class="inputSensor" id="input_1">
+
+        <div>
+
+          <h6 id="h66666">Запись</h6>
+          <input class="sensorInputReferense" id="inputReference" placeholder="Ref 1-7">
+          <input class="sensorInput" id="sendValues" placeholder="Value">
+          <button class="buttonSendValue" id="sendRequestSensors">Записать значение</button>
+          <input class="response" placeholder="Response">
+
+        </div>
+
+        <hr>
+
+        <div>
+          <h6 id="h666666">Чтение</h6>
+          <button class="buttonRead" id="buttonS">Read registers 1-7</button>
+          <button class="buttonRefresh" id="buttonRefresh1">Refresh</button>
+          <input class="checkBox" id="check1" type="checkbox" checked>
+          <label for="check1">Ready to read</label>
+        </div>
+        
+      </div>
 
       <div class="sensorFields">
         <div class="discretSensor">
 
-          <input class="sensorValues" id="1">
-          <p class="sensorValues1Result" style="display: block;" id="ppvm">1. ППВМ: нет</p>
-          <p class="sensorValues1Result" style="display: block;" id="bdzm">БДЗМ: нет</p>
-          <p class="sensorValues1Result" style="display: block;" id="pvom">ПВОМ: нет</p>
-          <p class="sensorValues1Result" style="display: block;" id="avom">ЭВОМ: нет</p>
-          <p class="sensorValues1Result" style="display: block;" id="rkp">РКП: нет</p>
-          <p class="sensorValues1Result" style="display: block;" id="kp">КП: нет</p>
-          <p class="sensorValues1Result" style="display: block;" id="kpType">Тип КП: нет данных</p>
-          <p class="sensorValues1Result" style="display: block;" id="liquid1">Параметр жидкости (вход 1): нет датчика</p>
-          <p class="sensorValues1Result" style="display: block;" id="liquid2">Параметр жидкости (вход 2): нет датчика</p>
-          <p class="sensorValues1Result" style="display: block;" id="liquid3">Параметр жидкости (вход 3): нет датчика</p>
-          <p class="sensorValues1Result" style="display: block;" id="liquid4">Параметр жидкости (вход 4): нет датчика</p>
+          <input class="sensorValues" id="1" readonly>
+          <p class="sensorValues1Result" id="ppvm">1. ППВМ: нет</p>
+          <p class="sensorValues1Result" id="bdzm">БДЗМ: нет</p>
+          <p class="sensorValues1Result" id="pvom">ПВОМ: нет</p>
+          <p class="sensorValues1Result" id="avom">ЭВОМ: нет</p>
+          <p class="sensorValues1Result" id="rkp">РКП: нет</p>
+          <p class="sensorValues1Result" id="kp">КП: нет</p>
+          <p class="sensorValues1Result" id="kpType">Тип КП: нет данных</p>
+          <p class="sensorValues1Result" id="liquid1">Параметр жидкости (вход 1): нет датчика</p>
+          <p class="sensorValues1Result" id="liquid2">Параметр жидкости (вход 2): нет датчика</p>
+          <p class="sensorValues1Result" id="liquid3">Параметр жидкости (вход 3): нет датчика</p>
+          <p class="sensorValues1Result" id="liquid4">Параметр жидкости (вход 4): нет датчика</p>
 
         </div>
         <div class="discretSensor">
 
           <input class="sensorValues" id="2">
-          <p class="lilDescr" style="display: block;">2. Частота вращения ПВОМ: </p>
-          <p class="descr" style="display: block;" id="freqPVOM">Нет датчика</p>
+          <p class="lilDescr">2. Частота вращения ПВОМ: </p>
+          <p class="descr" id="freqPVOM">Нет датчика</p>
 
         </div>
         <div class="discretSensor">
 
           <input class="sensorValues" id="3">
-          <p class="lilDescr" style="display: block;">3. Частота вращения ЗВОМ: </p>
-          <p class="descr" style="display: block;" id="freqZVOM">Нет датчика</p>
+          <p class="lilDescr">3. Частота вращения ЗВОМ: </p>
+          <p class="descr" id="freqZVOM">Нет датчика</p>
 
         </div>
         <div class="discretSensor">
 
           <input class="sensorValues" id="4">
-          <p class="lilDescr" style="display: block;">4. Частота вращения двигателя: </p>
-          <p class="descr" style="display: block;" id="freqEngine">Нет датчика</p>
+          <p class="lilDescr">4. Частота вращения двигателя: </p>
+          <p class="descr" id="freqEngine">Нет датчика</p>
 
         </div>
         <div class="discretSensor">
 
           <input class="sensorValues" id="5">
-          <p class="lilDescr" style="display: block;">5. Частота вращения валов КП: </p>
-          <p class="descr" style="display: block;" id="freqKP">Нет датчика</p>
+          <p class="lilDescr">5. Частота вращения валов КП: </p>
+          <p class="descr" id="freqKP">Нет датчика</p>
 
         </div>
         <div class="discretSensor">
 
           <input class="sensorValues" id="6">
-          <p class="sensorValuesResult6" style="display: block;" id="corner13">6. Датчик угла поворота 13: нет</p>
-          <p class="sensorValuesResult6" style="display: block;" id="corner25">Датчик угла поворота 25: нет</p>
-          <p class="sensorValuesResult6" style="display: block;" id="rightBreak">Датчик правой педали тормоза: нет</p>
-          <p class="sensorValuesResult6" style="display: block;" id="leftBreak">Датчик левой педали тормоза: нет</p>
-          <p class="sensorValuesResult6" style="display: block;" id="traction">Датчик сцепления: нет</p>
-          <p class="sensorValuesResult6" style="display: block;" id="neutral">Датчик нейтрали: нет</p>
-          <p class="sensorValuesResult6" style="display: block;" id="slowBreak">Кнопка подтормаживания: нет</p>
-          <p class="sensorValuesResult6" style="display: block;" id="range">Датчик транспортного диапазона: нет</p>
+          <p class="sensorValuesResult6" id="corner13">6. Датчик угла поворота 13: нет</p>
+          <p class="sensorValuesResult6" id="corner25">Датчик угла поворота 25: нет</p>
+          <p class="sensorValuesResult6" id="rightBreak">Датчик правой педали тормоза: нет</p>
+          <p class="sensorValuesResult6" id="leftBreak">Датчик левой педали тормоза: нет</p>
+          <p class="sensorValuesResult6" id="traction">Датчик сцепления: нет</p>
+          <p class="sensorValuesResult6" id="neutral">Датчик нейтрали: нет</p>
+          <p class="sensorValuesResult6" id="slowBreak">Кнопка подтормаживания: нет</p>
+          <p class="sensorValuesResult6" id="range">Датчик транспортного диапазона: нет</p>
 
         </div>
         <div class="discretSensor">
 
           <input class="sensorValues" id="7">
-          <p class="press" style="display: block;" id="press1">7. Датчик давления 1: нет</p>
-          <p class="press" style="display: block;" id="press2">Датчик давления 2: нет</p>
-          <p class="press" style="display: block;" id="press3">Датчик давления 3: нет</p>
-          <p class="press" style="display: block;" id="press4">Датчик давления 4: нет</p>
-          <p class="press" style="display: block;" id="press5">Датчик давления 5: нет</p>
-          <p class="press" style="display: block;" id="press6">Датчик давления 6: нет</p>
-          <p class="press" style="display: block;" id="press7">Датчик давления 7: нет</p>
-          <p class="press" style="display: block;" id="press8">Датчик давления 8: нет</p>
-          <p class="press" style="display: block;" id="press9">Датчик давления 9: нет</p>
-          <p class="press" style="display: block;" id="press10">Датчик давления 10: нет</p>
+          <p class="press" id="press1">7. Датчик давления 1: нет</p>
+          <p class="press" id="press2">Датчик давления 2: нет</p>
+          <p class="press" id="press3">Датчик давления 3: нет</p>
+          <p class="press" id="press4">Датчик давления 4: нет</p>
+          <p class="press" id="press5">Датчик давления 5: нет</p>
+          <p class="press" id="press6">Датчик давления 6: нет</p>
+          <p class="press" id="press7">Датчик давления 7: нет</p>
+          <p class="press" id="press8">Датчик давления 8: нет</p>
+          <p class="press" id="press9">Датчик давления 9: нет</p>
+          <p class="press" id="press10">Датчик давления 10: нет</p>
 
         </div>
 
       </div>
 
-      <div class="inputSensor" id="input_1">
-
-        <input class="sensorInput" id="inputReference" placeholder="Ref 1-7">
-        <input class="sensorInput" id="sendValues" placeholder="Value">
-        <button class="button" id="sendRequestSensors">Записать значение</button>
-        <input class="response" placeholder="Response">
-
-      </div>
+      
 
     </div>
 
@@ -112,99 +132,110 @@
 
       <div class="inputSensor">
 
-        <h6 class="header" id="h6">Запись</h6>
-        <input class="sensorInput" id="inputReference2" placeholder="Ref 8-17">
-        <input class="sensorInput" id="sendValues2" placeholder="Value">
-        <button class="button" id="sendRequestSensors2">Записать значение</button>
-        <input class="response" placeholder="Response">
+        <div>
+          <h6 class="header" id="h6666666">Запись</h6>
+          <input class="sensorInputReferense" id="inputReference2" placeholder="Ref 8-17">
+          <input class="sensorInput" id="sendValues2" placeholder="Value">
+          <button class="buttonSendValue" id="sendRequestSensors2">Записать значение</button>
+          <input class="response" placeholder="Response">
+        </div>
+        
+        <hr>
+
+        <div>
+          <h6 class="header" id="h66666666">Чтение</h6>
+          <button class="buttonRead" id="buttonS2">Read registers 8-17</button>
+          <button class="buttonRefresh" id="buttonRefresh2">Refresh</button>
+          <input class="checkBox" id="check2" type="checkbox" checked>
+          <label for="check2">Ready to read</label>
+        </div>
 
       </div>
 
-      <button class="button" id="buttonS2">Read registers 8-17</button>
-      <button class="button" id="buttonRefresh2">Refresh</button>
-      <input class="checkBox" id="check2" type="checkbox" checked>
-      <label for="check2">Ready to read</label>
+      
 
       
 
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">8. Коэффициент для расчета теоретической скорости движения: </p>
-        <p class="descrData" style="display: block;" id="koefK">No info</p>
+        <p class="lilDescr">8. Коэффициент для расчета теоретической скорости движения: </p>
+        <p class="descrData" id="koefK">No info</p>
 
       </div>
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">9. Резерв: </p>
-        <p class="descrData" style="display: block;" id="reserve">No info</p>
+        <p class="lilDescr">9. Резерв: </p>
+        <p class="descrData" id="reserve">No info</p>
 
       </div>
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">10. Время задержки анализа датчиков давления: </p>
-        <p class="descrData" style="display: block;" id="pressDelay">No info</p>
+        <p class="lilDescr">10. Время задержки анализа датчиков давления: </p>
+        <p class="descrData" id="pressDelay">No info</p>
 
       </div>
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">11. Скорость отключения ППВМ: </p>
-        <p class="descrData" style="display: block;" id="vDisablePPVM">No info</p>
+        <p class="lilDescr">11. Скорость отключения ППВМ: </p>
+        <p class="descrData" id="vDisablePPVM">No info</p>
 
       </div>
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">12. Скорость включения ППВМ: </p>
-        <p class="descrData" style="display: block;" id="vInablePPVM">No info</p>
+        <p class="lilDescr">12. Скорость включения ППВМ: </p>
+        <p class="descrData" id="vInablePPVM">No info</p>
 
       </div>
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">13. Время принудительного включения ППВМ: </p>
-        <p class="descrData" style="display: block;" id="tForceInablePPVM">No info</p>
+        <p class="lilDescr">13. Время принудительного включения ППВМ: </p>
+        <p class="descrData" id="tForceInablePPVM">No info</p>
 
       </div>
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">14. Скорость отключения БД: </p>
-        <p class="descrData" style="display: block;" id="vDisableBD">No info</p>
+        <p class="lilDescr">14. Скорость отключения БД: </p>
+        <p class="descrData" id="vDisableBD">No info</p>
 
       </div>
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">15. Скорость включения БД: </p>
-        <p class="descrData" style="display: block;" id="vInableBD">No info</p>
+        <p class="lilDescr">15. Скорость включения БД: </p>
+        <p class="descrData" id="vInableBD">No info</p>
 
       </div>
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">16. Максимальный ток дискретного электромагнита: </p>
-        <p class="descrData" style="display: block;" id="maxCurrent">No info</p>
+        <p class="lilDescr">16. Максимальный ток дискретного электромагнита: </p>
+        <p class="descrData" id="maxCurrent">No info</p>
 
       </div>
       <div class="dataValues">
         
         <input class="sensorValues">
-        <p class="lilDescr" style="display: block;">17. Время повторного включения ВОМ: </p>
-        <p class="descrData" style="display: block;" id="tInableVOM">No info</p>
+        <p class="lilDescr">17. Время повторного включения ВОМ: </p>
+        <p class="descrData" id="tInableVOM">No info</p>
 
       </div>
 
     </div>
 
-    <div class="readOnly" style="position: absolute; left: +418px; top: 610px">
-      <div class="buttons">
-        <h4 class="header">Данные для чтения</h4>
-        <button class="button" id="buttonS3">Read registers 18-48</button>
-        <button class="button" id="buttonRefresh3">Refresh</button>
+    <div class="readOnly">
+
+      <h4 class="header">Данные для чтения</h4>
+      <div class="inputSensor" id="input_2">
+        <h6 id="h666666666">Чтение</h6>
+        <button class="buttonRead" id="buttonS3">Read registers 18-48</button>
+        <button class="buttonRefresh" id="buttonRefresh3">Refresh</button>
         <input class="checkBox" id='check3' type="checkbox" checked>
         <label for="check3">Ready to read</label>
       </div>
@@ -215,64 +246,64 @@
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущей частоты вращения F0: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущей частоты вращения F0: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущей частоты вращения F1: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущей частоты вращения F1: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущей частоты вращения F2: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущей частоты вращения F2: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущей частоты вращения F3: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущей частоты вращения F3: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущей частоты вращения F4: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущей частоты вращения F4: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущей частоты вращения F5: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущей частоты вращения F5: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущей частоты вращения F6: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущей частоты вращения F6: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущей частоты вращения F7: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущей частоты вращения F7: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущей частоты вращения F8: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущей частоты вращения F8: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
 
@@ -283,57 +314,57 @@
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 0: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 0: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 1: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 1: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 2: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 2: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 3: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 3: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 4: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 4: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 5: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 5: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 6: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 6: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 7: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 7: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
 
@@ -344,57 +375,57 @@
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 8: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 8: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 9: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 9: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 10: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 10: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 11: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 11: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 12: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 12: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 13: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 13: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 14: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 14: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание АЦП 15: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание АЦП 15: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
 
@@ -406,43 +437,43 @@
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущего состояния дискретного датчика 0: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущего состояния дискретного датчика 0: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание текущего состояния дискретного датчика 1: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание текущего состояния дискретного датчика 1: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание скорости движения: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание скорости движения: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание напряжения бортовой сети: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание напряжения бортовой сети: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание датчика давления масла гидросистемы КПП: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание датчика давления масла гидросистемы КПП: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
         <div class="readOnlyValues">
           
           <input class="sensorValues">
-          <p class="lilDescr" style="display: block;">Показание датчика температуры масла гидросистемы КПП: </p>
-          <p class="varReadOnly" style="display: block;">No info</p>
+          <p class="lilDescr">Показание датчика температуры масла гидросистемы КПП: </p>
+          <p class="varReadOnly">No info</p>
 
         </div>
 
@@ -451,7 +482,7 @@
 
     </div>
 
-    <hr class="hr" style="top: +2100px;">
+    <hr class="hr" style="top: +2360px;">
 
     <div class="allShim">
 
@@ -461,9 +492,9 @@
 
         <div>
           <h6 class="header" id="h666">Запись</h6>
-          <input class="sensorInput" id="inputReference3" placeholder="Ref 1-48">
+          <input class="sensorInputReferense" id="inputReference3" placeholder="Ref 1-48">
           <input class="sensorInput" id="sendValues3" placeholder="Value">
-          <button class="button" id="sendRequestSensors3">Записать значение</button>
+          <button class="buttonSendValue" id="sendRequestSensors3">Записать значение</button>
           <input class="response" placeholder="Response">
         </div>
         
@@ -471,8 +502,8 @@
 
         <div>
           <h6 class="header" id="h6666"> Чтение</h6>
-          <button class="button" id="buttonS4">Read all</button>
-          <button class="button" id="buttonRefresh4">Refresh</button>
+          <button class="buttonRead" id="buttonS4">Read all</button>
+          <button class="buttonRefresh" id="buttonRefresh4">Refresh</button>
           <input class="checkBox" id="check4" type="checkbox" checked>
           <label for="check4">Ready to read</label>
         </div>
@@ -486,113 +517,113 @@
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">1. Частота ШИМ 1: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">1. Частота ШИМ 1: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">2. Частота ШИМ 2: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">2. Частота ШИМ 2: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">3. Частота ШИМ 3: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">3. Частота ШИМ 3: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">4. Частота ШИМ 4: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">4. Частота ШИМ 4: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">5. Частота ШИМ 5: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">5. Частота ШИМ 5: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">6. Частота ШИМ 6: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">6. Частота ШИМ 6: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">7. Частота ШИМ 7: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">7. Частота ШИМ 7: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">8. Частота ШИМ 8: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">8. Частота ШИМ 8: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">9. Частота ШИМ 9: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">9. Частота ШИМ 9: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">10. Частота ШИМ 10: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">10. Частота ШИМ 10: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">11. Частота ШИМ 11: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">11. Частота ШИМ 11: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">12. Частота ШИМ 12: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">12. Частота ШИМ 12: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">13. Частота ШИМ 13: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">13. Частота ШИМ 13: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">14. Частота ШИМ 14: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">14. Частота ШИМ 14: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">15. Частота ШИМ 15: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">15. Частота ШИМ 15: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimFreqValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">16. Частота ШИМ 16: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">16. Частота ШИМ 16: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
 
@@ -603,113 +634,113 @@
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">17. Максимальный ток пропорционального электромагнита ШИМ 1: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">17. Максимальный ток пропорционального электромагнита ШИМ 1: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">18. Максимальный ток пропорционального электромагнита ШИМ 2: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">18. Максимальный ток пропорционального электромагнита ШИМ 2: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">19. Максимальный ток пропорционального электромагнита ШИМ 3: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">19. Максимальный ток пропорционального электромагнита ШИМ 3: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">20. Максимальный ток пропорционального электромагнита ШИМ 4: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">20. Максимальный ток пропорционального электромагнита ШИМ 4: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">21. Максимальный ток пропорционального электромагнита ШИМ 5: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">21. Максимальный ток пропорционального электромагнита ШИМ 5: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">22. Максимальный ток пропорционального электромагнита ШИМ 6: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">22. Максимальный ток пропорционального электромагнита ШИМ 6: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">23. Максимальный ток пропорционального электромагнита ШИМ 7: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">23. Максимальный ток пропорционального электромагнита ШИМ 7: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">24. Максимальный ток пропорционального электромагнита ШИМ 8: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">24. Максимальный ток пропорционального электромагнита ШИМ 8: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">25. Максимальный ток пропорционального электромагнита ШИМ 9: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">25. Максимальный ток пропорционального электромагнита ШИМ 9: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">26. Максимальный ток пропорционального электромагнита ШИМ 10: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">26. Максимальный ток пропорционального электромагнита ШИМ 10: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">27. Максимальный ток пропорционального электромагнита ШИМ 11: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">27. Максимальный ток пропорционального электромагнита ШИМ 11: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">28. Максимальный ток пропорционального электромагнита ШИМ 12: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">28. Максимальный ток пропорционального электромагнита ШИМ 12: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">29. Максимальный ток пропорционального электромагнита ШИМ 13: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">29. Максимальный ток пропорционального электромагнита ШИМ 13: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">30. Максимальный ток пропорционального электромагнита ШИМ 14: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">30. Максимальный ток пропорционального электромагнита ШИМ 14: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">31. Максимальный ток пропорционального электромагнита ШИМ 15: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">31. Максимальный ток пропорционального электромагнита ШИМ 15: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="maxShimCurrentValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">32. Максимальный ток пропорционального электромагнита ШИМ 16: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">32. Максимальный ток пропорционального электромагнита ШИМ 16: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
 
@@ -720,113 +751,113 @@
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">33. Длительность шага закона программирования ШИМ 1: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">33. Длительность шага закона программирования ШИМ 1: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">34. Длительность шага закона программирования ШИМ 2: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">34. Длительность шага закона программирования ШИМ 2: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">35. Длительность шага закона программирования ШИМ 3: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">35. Длительность шага закона программирования ШИМ 3: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">36. Длительность шага закона программирования ШИМ 4: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">36. Длительность шага закона программирования ШИМ 4: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">37. Длительность шага закона программирования ШИМ 5: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">37. Длительность шага закона программирования ШИМ 5: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">38. Длительность шага закона программирования ШИМ 6: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">38. Длительность шага закона программирования ШИМ 6: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">39. Длительность шага закона программирования ШИМ 7: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">39. Длительность шага закона программирования ШИМ 7: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">40. Длительность шага закона программирования ШИМ 8: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">40. Длительность шага закона программирования ШИМ 8: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">41. Длительность шага закона программирования ШИМ 9: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">41. Длительность шага закона программирования ШИМ 9: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">42. Длительность шага закона программирования ШИМ 10: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">42. Длительность шага закона программирования ШИМ 10: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">43. Длительность шага закона программирования ШИМ 11: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">43. Длительность шага закона программирования ШИМ 11: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">44. Длительность шага закона программирования ШИМ 12: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">44. Длительность шага закона программирования ШИМ 12: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">45. Длительность шага закона программирования ШИМ 13: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">45. Длительность шага закона программирования ШИМ 13: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">46. Длительность шага закона программирования ШИМ 14: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">46. Длительность шага закона программирования ШИМ 14: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">47. Длительность шага закона программирования ШИМ 15: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">47. Длительность шага закона программирования ШИМ 15: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
         <div class="shimLawValues">
 
           <input class="shimValues">
-          <p class="lilDescr" style="display: block;">48. Длительность шага закона программирования ШИМ 16: </p>
-          <p class="shimFreqResponse" style="display: block;">No info</p>
+          <p class="lilDescr">48. Длительность шага закона программирования ШИМ 16: </p>
+          <p class="shimFreqResponse">No info</p>
 
         </div>
 
@@ -835,14 +866,37 @@
     </div>
 
 
-    <hr class="hr" style="top: +4350px;">
+    <hr class="hr" style="top: +4620px;">
 
 
     <div class="shimLines">
 
       <h4 class="header">Граифки ШИМ</h4>
 
-      <canvas id="myChart" width='400px' height='200px'></canvas>
+      <div>
+        <button id="draw">Draw</button>
+        <button id="pageRead">Send</button>
+      </div>
+
+      <div class="graphicsLine">
+        <canvas class="graphics" id="myChart1"></canvas>
+        <canvas class="graphics" id="myChart2"></canvas>
+      </div>
+
+      <div class="graphicsLine">
+        <canvas class="graphics" id="myChart3"></canvas>
+        <canvas class="graphics" id="myChart4"></canvas>
+      </div>
+      
+      <div class="graphicsLine">
+        <canvas class="graphics" id="myChart5"></canvas>
+        <canvas class="graphics" id="myChart6"></canvas>
+      </div>
+
+      <div class="graphicsLine">
+        <canvas class="graphics" id="myChart7"></canvas>
+        <canvas class="graphics" id="myChart8"></canvas>
+      </div>
 
 
     </div>

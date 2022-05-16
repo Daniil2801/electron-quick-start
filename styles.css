@@ -2,29 +2,12 @@
 
 /* Add styles here to customize the appearance of your app */
 
-.input {
-    width: 122px;
-    float: left;
-    margin: 1px 1px 1px 1px;
-}
-
-.output {
-    margin: 1px 1px 1px 1px;
-    width: 254px;
-}
-
-.button {
-    /* float: left; */
-    margin: 1px 1px 1px 1px;
-    padding: 0 47px 0 47px;
-}
-
-.buttons {
-    float: none;
-}
-
-.workTable {
-    float: left;
+.portInit {
+    border: 3px solid black;
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px;
+    width: 350px;
 }
 
 .sensors {
@@ -34,7 +17,7 @@
     padding: 5px 5px 5px 5px;
     margin: 5px 5px 5px 5px;
     width: 1520px;
-    height: 580px;
+    height: 710px;
     position: absolute;
 }
 
@@ -45,13 +28,7 @@
     width: 400px;
     margin-left: 5px;
     position: absolute;
-    top: +610px;
-}
-
-.dataValues {
-    border: 1px solid black;
-    margin: 3px 3px 3px 3px;
-    padding: 2px 2px 2px 2px;
+    top: +820px;
 }
 
 .readOnly {
@@ -59,141 +36,52 @@
     border: 2px solid black;
     border-radius: 7px;
     width: 1125px;
-    /* position: static; */
-}
-
-.readOnlyValues {
-    float: none;
-    border: 1px solid black;
-    margin: 3px 3px 3px 3px;
-    padding: 2px 2px 2px 2px;
-}
-
-.readOnlyFreqValues {
-    float: left;
-}
-
-.readOnlyCPUValues1 {
-    float: left;
-}
-
-.readOnlyCPUValues2 {
-    float: left;
-}
-
-.readOnlyRest {
-    float: left;
-}
-
-.sensorValues, .shimValues {
-    /* float: left; */
-    margin: 5px 5px 0 5px;
-}
-
-.header {
-    text-align: center;
-}
-
-.descr {
-    float: none;
-}
-
-.discretSensor {
-    float: left;
-    width: 200px;
-    margin: 5px 5px 5px 5px;
-    padding: 2px 2px 2px 2px;
-    border: 1px solid black;
-    border-radius: 5px;
-}
-
-.sensorFields {
-    float: none;
-}
-
-.inputSensor {
-    float: left;
-    border: 3px solid green;
-    border-radius: 3px;
-    margin: 15px 5px 15px 5px;
-    padding: 3px 3px 3px 3px;
-}
-
-#CPU2 {
-    float: none;
-    border: 3px solid green;
-    border-radius: 3px;
-    margin: 15px 5px 15px 5px;
-    padding: 3px 3px 3px 3px;
-    width: 590px;
-    text-align: center;
-}
-
-.response {
-    margin: 5px 0 5px 0;
-}
-
-#h4 {
-    margin-bottom: 0px;
-}
-
-#h6, #h66, #h666, #h6666 {
-    float: none;
-    margin-top: 4px;
-    margin-bottom: 10px;
-}
-
-#inputValues {
-    margin: 5px 5px 5px 5px;
-}
-
-#sendRequestSensors {
-    margin: 5px 5px 5px 5px;
-}
-
-.sensorInput {
-    width: 20px;
-    margin: 2px 2px 2px 2px;
-}
-
-#sendValues {
-    width: 150px;
-}
-
-#sendValues2, #sendValues3 {
-    width: 150px;
-}
-
-#inputReference {
-    width: 70px;
-}
-
-#inputReference2, #inputReference3 {
-    width: 70px;
-}
-
-.hr {
     position: absolute;
-    width: 1600px;
-    height: 5px;
-    color: black;
-    background-color: black;
+    left: +418px;
+    top: +820px;
 }
 
 .allShim {
     position: absolute;
-    top: +2200px;
+    top: +2465px;
     border: 2px solid black;
     border-radius: 5px;
     width: 1150px;
     float: left;
 }
 
-.shimFreqValues {
-    border: 1px solid black;
-    float: none;
-    margin: 3px 3px 3px 3px;
+.shimLines {
+    width: 1450px;
+    height: 500px;
+    position: absolute;
+    top: +4710px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
+
+
+
+
+.inputSensor {
+    float: none;
+    border: 3px solid green;
+    border-radius: 3px;
+    margin: 15px 5px 15px 5px;
+    padding: 3px 3px 3px 3px;
+}
+
+#input_1 {
+    width: 680px;
+    text-align: center;
+}
+
+#input_2 {
+    width: 550px;
+}
+
+
+
 
 .shimFreq {
     float: left;
@@ -205,14 +93,23 @@
     margin: 7px 7px 7px 7px;
 }
 
-.maxShimCurrentValues {
-    border: 1px solid black;
-    margin: 3px 3px 3px 3px;
-}
-
 .shimLaw {
     float: left;
     margin: 7px 7px 7px 7px;
+}
+
+
+
+
+.shimFreqValues {
+    border: 1px solid black;
+    float: none;
+    margin: 3px 3px 3px 3px;
+}
+
+.maxShimCurrentValues {
+    border: 1px solid black;
+    margin: 3px 3px 3px 3px;
 }
 
 .shimLawValues {
@@ -220,20 +117,134 @@
     margin: 3px 3px 3px 3px;
 }
 
+.discretSensor {
+    float: left;
+    width: 200px;
+    margin: 5px 5px 5px 5px;
+    padding: 2px 2px 2px 2px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.dataValues {
+    border: 1px solid black;
+    margin: 3px 3px 3px 3px;
+    padding: 2px 2px 2px 2px;
+}
+
+.readOnlyValues {
+    float: none;
+    border: 1px solid black;
+    margin: 3px 3px 3px 3px;
+    padding: 2px 2px 2px 2px;
+}
+
+
+.readOnlyFreqValues, .readOnlyCPUValues1, .readOnlyCPUValues2, .readOnlyRest {
+    float: left;
+}
+
+.sensorValues, .shimValues {
+    margin: 5px 5px 0 5px;
+    
+}
+
+
+
+
+
+
+.button, #buttonS2, #buttonS3, #buttonRefresh2, #buttonRefresh3 {
+    margin: 1px 1px 1px 1px;
+    padding: 0 47px 0 47px;
+}
+
+.buttons {
+    float: none;
+}
+
 .checkBox {
     margin-left: 20px;
 }
 
-.shimLines {
-    width: 1000px;
-    height: 1000px;
-    position: absolute;
-    top: +4450px;
-    border: 2px solid black;
-    border-radius: 5px;
+#sendRequestSensors {
+    margin: 5px 5px 5px 5px;
 }
 
-#myChart {
-    width: 200px;
-    height: 200px;
+
+
+
+.descr {
+    float: none;
 }
+
+.header {
+    text-align: center;
+}
+
+
+
+#h4 {
+    margin-bottom: 0px;
+}
+
+#h6, #h66, #h666, #h6666, #h66666, #h666666, #h6666666, #h66666666, #h666666666, #h6666666666 {
+    float: none;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+
+
+
+
+.hr {
+    position: absolute;
+    width: 1600px;
+    height: 5px;
+    color: black;
+    background-color: black;
+}
+
+
+
+
+
+
+#CPU2 {
+    float: none;
+    border: 3px solid green;
+    border-radius: 3px;
+    margin: 15px 5px 15px 5px;
+    padding: 3px 3px 3px 3px;
+    width: 590px;
+    text-align: center;
+}
+
+#inputValues {
+    margin: 5px 5px 5px 5px;
+}
+
+#sendValues, #sendValues2, #sendValues3 {
+    width: 150px;
+}
+
+#inputReference, #inputReference2, #inputReference3 {
+    width: 70px;
+}
+
+
+
+
+
+
+
+.graphics {
+    float: left;
+    border: 1px solid black;
+    margin: 5px 5px 5px 5px;
+    height: 175px;
+    width: 350px;
+}
+
