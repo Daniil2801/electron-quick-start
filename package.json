@@ -4,7 +4,8 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager . --out=build --overwrite"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -23,9 +24,11 @@
   "dependencies": {
     "chart.js": "^3.7.1",
     "electron": "^18.2.0",
+    "electron-packager": "^15.5.1",
     "fs": "^0.0.1-security",
     "mootools": "^1.5.2",
     "node-gyp": "^9.0.0",
-    "serialport": "^10.4.0"
+    "serialport": "^10.4.0",
+    "tableify": "^1.1.1"
   }
 }

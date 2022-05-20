@@ -51,6 +51,7 @@ let shimNumber2 = document.getElementById('shimNumber2');
 let checkReadBtn = document.getElementById('checkReadBtn');
 let checkReadFieldInsyde = document.querySelectorAll('.checkReadFieldInsyde');
 let flash = document.getElementById('flash');
+let COMcheck = document.getElementById('COMcheck');
 
 let buttonWriteFromTxt = document.getElementById('buttonWriteFromTxt');
 let graphics = document.querySelectorAll('.graphics');
@@ -79,7 +80,7 @@ let jj = 60;
 let jjj = 100;
 let l;
 let j300 = 300;
-
+let port;
 
 
 
@@ -101,7 +102,7 @@ function blockInput() {
 blockInput();
 
 
-
+console.log(SerialPort.list());
 // var port = new SerialPort({
 //     path: 'COM7',
 //     baudRate: 57600,
@@ -109,13 +110,30 @@ blockInput();
 //     parity: 'none'
 // });
 
+buttonCOM.addEventListener('click', () => {
+    COMcheck.checked = false;
+    let path = 'COM' + inputSerial.value;
+
+    port = new SerialPort({
+        path: path,
+        baudRate: 57600,
+        dataBits: 8,
+        parity: 'none'
+    });
+
+    port.on('open', () => { 
+        console.log('Opened ', + port.baudRate + port.path);
+        COMcheck.checked = true;
+     });
+    return port;
+});
 
 
 
 
 
 
-function firstRead1(buf) {
+function firstRead1(buf, port) {
 
     let j = 0;
 
@@ -219,7 +237,6 @@ function shimLawRead(buf, number) {
             port.write(buf, 'hex');
             console.log(buf);
             clearBuf(buf);
-            console.log(buf);
         }, (i - 64 * number) * 150);
     }
 
@@ -232,7 +249,6 @@ function sendToFlash (buf, value) {
     port.write(buf, 'hex');
     console.log(buf);
     clearBuf(buf);
-    console.log(buf);
 }
 
 
@@ -292,7 +308,6 @@ function writingRegister(buf, ref, value) {
     port.write(buf, 'hex');
     console.log(buf);
     clearBufWriter(buf);
-    console.log(buf);
 
 }
 
@@ -726,7 +741,7 @@ function refreshShim() {
 
 function readTxt() {
 
-    let data = fs.readFileSync('test.txt', 'utf-8', function() {});
+    let data = fs.readFileSync('zakon.txt', 'utf-8', function() {});
     console.log(data);
 
     let charCount = 0;
@@ -906,7 +921,7 @@ for (let c = 0; c < checkBox.length; c++) {
 // button for sending requests
 readButtons[0].addEventListener('click', () => {
     j = 0;
-    firstRead1(defaultBufRead);
+    firstRead1(defaultBufRead, port);
     checkBoxesSwitch(1600);
     return j;
 });
@@ -1059,19 +1074,7 @@ flash.addEventListener('click', () => {
 
 
 
-buttonCOM.addEventListener('click', () => {
-    let path = 'COM' + inputSerial.value;
 
-    var port = new SerialPort({
-        path: path,
-        baudRate: 57600,
-        dataBits: 8,
-        parity: 'none'
-    });
-
-    port.on('open', () => { console.log('Opened ', + port.baudRate + port.path) });
-    return port;
-});
 
 
 
@@ -1117,7 +1120,7 @@ port.on('data', function (data) {
         case 52:
             console.log(data.toString('hex'));
             decoder(data.toString('hex').slice(6, 10), data, j);
-            fs.appendFile('test.txt', answerSTR + '\n', function() {
+            fs.appendFile('zakon.txt', answerSTR + '\n', function() {
                 console.log(answerSTR);
             });
             txt.push(answerSTR);
