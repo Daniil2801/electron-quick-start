@@ -23,6 +23,7 @@
   "dependencies": {
     "chart.js": "^3.7.1",
     "electron": "^18.2.0",
+    "fs": "^0.0.1-security",
     "mootools": "^1.5.2",
     "node-gyp": "^9.0.0",
     "serialport": "^10.4.0"

@@ -10,6 +10,9 @@
 
 // initialization
 
+const { SerialPort } = require("serialport");
+const fs = require('fs');
+
 // let btnC = document.getElementById('buttonC');
 // let sendWC = document.getElementById('sendWordCount');
 // let sendBC = document.getElementById('sendByteCount');
@@ -41,34 +44,57 @@ let shimFreqResponse = document.querySelectorAll('.shimFreqResponse');
 let checkBox = document.querySelectorAll('.checkBox');
 let sensorValues1Result = document.querySelectorAll('.sensorValues1Result');
 let sensorValuesResult6 = document.querySelectorAll('.sensorValuesResult6');
-let buttonPageRead = document.getElementById('pageRead');
+let buttonReadTxt = document.getElementById('buttonReadTxt');
+let txtIncome = document.querySelectorAll('.txtIncome');
+let shimNumber = document.getElementById('shimNumber');
+let shimNumber2 = document.getElementById('shimNumber2');
+let checkReadBtn = document.getElementById('checkReadBtn');
+let checkReadFieldInsyde = document.querySelectorAll('.checkReadFieldInsyde');
+let flash = document.getElementById('flash');
+
+let buttonWriteFromTxt = document.getElementById('buttonWriteFromTxt');
+let graphics = document.querySelectorAll('.graphics');
+
 
 
 let defaultBufReadA = new Uint8Array([0x01, 0x03, 0x00, 0x00, 0x00, 0x01]);     // arrayLike object
 let defaultBufWriteA = new Uint8Array([0x01, 0x10, 0x00, 0x00, 0x00, 0x01, 0x02]);
 let defaultBufReadACPU2 = new Uint8Array([0x02, 0x03, 0x00, 0x00, 0x00, 0x01]);
 let defaultBufWriteACPU2 = new Uint8Array([0x02, 0x10, 0x00, 0x00, 0x00, 0x01, 0x02]);
-let defaultBufReadPageA = new Uint8Array([0x02, 0x06, 0x00, 0x00, 0x00, 0x00]);
+let defaultBufWritePageA = new Uint8Array([0x02, 0x10, 0x00, 0x00, 0x00, 0x01, 0x02, 0x00, 0x00]);
+let defaultBufReadPageA = new Uint8Array([0x02, 0x03, 0x00, 0x00, 0x00, 0x01]);
+let defaultBufFlashA = new Uint8Array([0x02, 0x06, 0x00, 0x00, 0x00, 0x00]);
 let defaultBufRead = Array.from(defaultBufReadA);                 // array
 let defaultBufWrite = Array.from(defaultBufWriteA);
 let defaultBufReadCPU2 = Array.from(defaultBufReadACPU2);
 let defaultBufWriteCPU2 = Array.from(defaultBufWriteACPU2);
+let defaultBufWritePage = Array.from(defaultBufWritePageA);
 let defaultBufReadPage = Array.from(defaultBufReadPageA);
+let defaultBufFlash = Array.from(defaultBufFlashA);
+
+let txtResult = [];
+let txt = [];
+let j = 0;
+let jj = 60;
+let jjj = 100;
+let l;
+let j300 = 300;
 
 
-
-const { Chart } = require("chart.js");
-const { SerialPort } = require("serialport");
-
-// const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
 
 
 function blockInput() {
     for ( let i = 0; i < sensorValues.length; i++ ) {
         sensorValues[i].setAttribute('readonly', 'readonly');
     }
-    for (let i = 0; i < shimValues.length; i++ ){
+    for ( let i = 0; i < shimValues.length; i++ ) {
         shimValues[i].setAttribute('readonly', 'readonly');
+    }
+    for ( let i = 0; i < txtIncome.length; i++ ) {
+        txtIncome[i].setAttribute('readonly', 'readonly');
+    }
+    for ( let i = 0; i < checkReadFieldInsyde.length; i++ ) {
+        checkReadFieldInsyde[i].setAttribute('readonly', 'readonly');
     }
 }
 
@@ -76,12 +102,14 @@ blockInput();
 
 
 
-var port = new SerialPort({
-    path: 'COM7',
-    baudRate: 57600,
-    dataBits: 8,
-    parity: 'none'
-});
+// var port = new SerialPort({
+//     path: 'COM7',
+//     baudRate: 57600,
+//     dataBits: 8,
+//     parity: 'none'
+// });
+
+
 
 
 
@@ -159,6 +187,54 @@ function firstRead4(buf) {
     return j;
 }
 
+function shimLawRead(buf, number) {
+    j = 200;
+    jjj = 200;
+
+    if ( number < 1 || number > 8 ) {
+        shimNumber2.value = 'Введите корректный номер';
+        shimNumber2.style.color = 'red';
+        return;
+    }
+
+    checkBoxesSwitch(10000);
+
+    for ( let i = (64 * number); i < ((64 * number) + 64); i++) {
+        setTimeout(function() {
+
+            switch(i.toString(16).length) {
+
+                case 2:
+                    buf[2] = 0;
+                    buf[3] = i.toString(16).slice(0, 2);
+                    break;
+                case 3:
+                    buf[2] = i.toString(16).slice(0, 1);
+                    buf[3] = i.toString(16).slice(1, 3);
+                    break;
+            }
+            buf[2] = parseInt(buf[2], 16);
+            buf[3] = parseInt(buf[3], 16);
+            crc16MODBUS(buf);
+            port.write(buf, 'hex');
+            console.log(buf);
+            clearBuf(buf);
+            console.log(buf);
+        }, (i - 64 * number) * 150);
+    }
+
+    return j, jjj;
+}
+
+function sendToFlash (buf, value) {
+    buf[5] = value;
+    crc16MODBUS(buf);
+    port.write(buf, 'hex');
+    console.log(buf);
+    clearBuf(buf);
+    console.log(buf);
+}
+
 
 function writingRegister(buf, ref, value) {
 
@@ -220,13 +296,6 @@ function writingRegister(buf, ref, value) {
 
 }
 
-function readPage() {
-    defaultBufReadPage[5] = 1;
-    crc16MODBUS(defaultBufReadPage);
-    console.log(defaultBufReadPage); 
-    port.write(defaultBufReadPage, 'hex');
-    clearBuf(defaultBufReadPage);
-}
 
 
 // clearing buffer
@@ -655,19 +724,110 @@ function refreshShim() {
 }
 
 
+function readTxt() {
+
+    let data = fs.readFileSync('test.txt', 'utf-8', function() {});
+    console.log(data);
+
+    let charCount = 0;
+    let endFounder = 0;
+    let i = 0;
+
+    for ( charCount = 0; charCount <= data.length; charCount++) {
+        if ( data[charCount + 1] != '\n' ) {
+            endFounder = endFounder + 1;
+        } else {
+            txtResult.push(data.slice((charCount - endFounder), charCount));
+            endFounder = 0;
+            charCount = charCount + 1;
+            if ( txtResult[i] > 60 || txtResult[i] < 0 ){
+                txtIncome[i].value = 'Не допустимо';
+                txtIncome[i].style.color = 'black';
+            } else {
+                txtIncome[i].value = txtResult[i];
+                txtIncome[i].style.color = 'red';
+            }
+            i = i + 1;
+        }
+    }
+
+
+    console.log(txtResult);
+    
+    for ( let u = 0; u < 64; u++) {
+        txtResult.pop();
+    }
+
+}
+
+function writeFromTxt(buf, number) {
+
+    j = 100;
+    jjj = 100;
+
+    if ( number < 1 || number > 8 ) {
+        shimNumber.value = 'Введите корректный номер';
+        shimNumber.style.color = 'red';
+        return;
+    }
+
+    checkBoxesSwitch(13000);
+
+    for ( let i = (64 * number); i < ((64 * number) + 64); i++) {
+        setTimeout(function() {
+
+            switch(i.toString(16).length) {
+
+                case 2:
+                    buf[2] = 0;
+                    buf[3] = i.toString(16).slice(0, 2);
+                    break;
+                case 3:
+                    buf[2] = '0' + i.toString(16).slice(0, 1);
+                    buf[3] = i.toString(16).slice(1, 3);
+                    break;
+            }
+
+            if ( txtIncome[i-64*number].value != 'Не допустимо') {
+                buf[8] = txtIncome[i-64*number].value;
+            } else {
+                buf[8] = 0;
+            }
+            buf[2] = parseInt(buf[2], 16);
+            buf[3] = parseInt(buf[3], 16);
+            crc16MODBUS(buf);
+            port.write(buf, 'hex');
+            txtIncome[i-64*number].style.color = 'green';
+            console.log(buf);
+            clearBuf(buf);
+            console.log(buf);
+        }, (i - 64 * number) * 200);
+    }
+
+    return j, jjj;
+    
+}
+
+
 
 // catching data and printing result
 let answerSTR
-function decoder(string) {
+function decoder(string, data, j) {
 
     let i = 0;
     let counter = string.length;
     let answer = [];
-    while ( counter > 0 ) {
+
+    if ( (data[0] == '1') && (j < 18)){
+        while ( counter > 0 ) {
         answer.push(string.slice(i, i+2));
         i = i + 2;
         counter = counter - 2;
+        }
+    } else {
+        answer.push(string);
     }
+    
 
     for ( let z = 0; z < answer.length; z++ ) {
         answer[z] = parseInt(answer[z], 16);
@@ -719,11 +879,15 @@ function checkBoxesSwitch(time) {
     checkBox[1].checked = false;
     checkBox[2].checked = false;
     checkBox[3].checked = false;
+    checkBox[4].checked = false;
+    checkBox[5].checked = false;
     setTimeout( function() {
         checkBox[0].checked = true;
         checkBox[1].checked = true;
         checkBox[2].checked = true;
         checkBox[3].checked = true;
+        checkBox[4].checked = true;
+        checkBox[5].checked = true;
     }, time);
 
 }
@@ -852,202 +1016,67 @@ sendRef3.addEventListener('click', () => {
 
 
 
-buttonPageRead.addEventListener('click', () => {
-    j = 52;
-    readPage();
+buttonReadTxt.addEventListener('click', () => {
+    readTxt();
+});
+
+
+
+shimNumber.addEventListener('click', () => {
+    shimNumber.value = '';
+    shimNumber.style.color = 'black';
 })
 
 
+buttonWriteFromTxt.addEventListener('click', () => {
 
-// buttonCOM.addEventListener('click', () => {
-//     let path = 'COM' + inputSerial.value;
+    let j = 200;
+    let jjj = 200;
+    writeFromTxt(defaultBufWritePage, shimNumber.value);
 
-//     var port = new SerialPort({
-//         path: path,
-//         baudRate: 57600,
-//         dataBits: 8,
-//         parity: 'none'
-//     });
+    console.log(txt);
+    return j, jjj;
 
-//     port.on('open', () => { console.log('Opened ', + port.baudRate + port.path) });
-//     return port;
-// });
+})
 
+checkReadBtn.addEventListener('click', () => {
 
+    j = 300;
+    j300 = 300;
+    shimLawRead(defaultBufReadPage, shimNumber2.value);
 
+    return j, j300;
 
+});
 
+flash.addEventListener('click', () => {
 
-
-let points = [0, 3, 1, 7, 5];
-
-
-// let ctx = document.getElementById('myChart').getContext('2d');
-let graphics1 = document.getElementById('myChart1').getContext('2d');
-let graphics2 = document.getElementById('myChart2').getContext('2d');
-let graphics3 = document.getElementById('myChart3').getContext('2d');
-let graphics4 = document.getElementById('myChart4').getContext('2d');
-let graphics5 = document.getElementById('myChart5').getContext('2d');
-let graphics6 = document.getElementById('myChart6').getContext('2d');
-let graphics7 = document.getElementById('myChart7').getContext('2d');
-let graphics8 = document.getElementById('myChart8').getContext('2d');
-let btnDraw = document.getElementById('draw');
-
-btnDraw.addEventListener('click', () => {
-
-    let chart1 = new Chart(graphics1, {
-        type: 'line',
-        data: {
-        labels: [0, 1, 2, 3, 4, 5],
-        datasets: [{
-            label: 'Chart 1',
-            backgroundColor: 'black',
-            borderColor: 'green',
-            data: points,
-            cubicInterpolationMode: 'monotone'
-            }]
-        },
-
-        options: {
-            responsive: false
-        }
-    });
-
-    let chart2 = new Chart(graphics2, {
-        type: 'line',
-        data: {
-        labels: [0, 1, 2, 3, 4, 5],
-        datasets: [{
-            label: 'Chart 2',
-            backgroundColor: 'black',
-            borderColor: 'green',
-            data: points,
-            cubicInterpolationMode: 'monotone'
-            }]
-        },
-
-        options: {
-            responsive: false
-        }
-    });
-
-    let chart3 = new Chart(graphics3, {
-        type: 'line',
-        data: {
-        labels: [0, 1, 2, 3, 4, 5],
-        datasets: [{
-            label: 'Chart 3',
-            backgroundColor: 'black',
-            borderColor: 'green',
-            data: points,
-            cubicInterpolationMode: 'monotone'
-            }]
-        },
-
-        options: {
-            responsive: false
-        }
-    });
-
-    let chart4 = new Chart(graphics4, {
-        type: 'line',
-        data: {
-        labels: [0, 1, 2, 3, 4, 5],
-        datasets: [{
-            label: 'Chart 4',
-            backgroundColor: 'black',
-            borderColor: 'green',
-            data: points,
-            cubicInterpolationMode: 'monotone'
-            }]
-        },
-
-        options: {
-            responsive: false
-        }
-    });
-
-    let chart5 = new Chart(graphics5, {
-        type: 'line',
-        data: {
-        labels: [0, 1, 2, 3, 4, 5],
-        datasets: [{
-            label: 'Chart 5',
-            backgroundColor: 'black',
-            borderColor: 'green',
-            data: points,
-            cubicInterpolationMode: 'monotone'
-            }]
-        },
-
-        options: {
-            responsive: false
-        }
-    });
-
-    let chart6 = new Chart(graphics6, {
-        type: 'line',
-        data: {
-        labels: [0, 1, 2, 3, 4, 5],
-        datasets: [{
-            label: 'Chart 6',
-            backgroundColor: 'black',
-            borderColor: 'green',
-            data: points,
-            cubicInterpolationMode: 'monotone'
-            }]
-        },
-
-        options: {
-            responsive: false
-        }
-    });
-
-    let chart7 = new Chart(graphics7, {
-        type: 'line',
-        data: {
-        labels: [0, 1, 2, 3, 4, 5],
-        datasets: [{
-            label: 'Chart 7',
-            backgroundColor: 'black',
-            borderColor: 'green',
-            data: points,
-            cubicInterpolationMode: 'monotone'
-            }]
-        },
-
-        options: {
-            responsive: false
-        }
-    });
-
-    let chart8 = new Chart(graphics8, {
-        type: 'line',
-        data: {
-        labels: [0, 1, 2, 3, 4, 5],
-        datasets: [{
-            label: 'Chart 8',
-            backgroundColor: 'black',
-            borderColor: 'green',
-            data: points,
-            cubicInterpolationMode: 'monotone'
-            }]
-        },
-
-        options: {
-            responsive: false
-        }
-    });
+    j = 400;
+    sendToFlash(defaultBufFlash, shimNumber.value);
+    return j;
 
 })
 
 
 
+buttonCOM.addEventListener('click', () => {
+    let path = 'COM' + inputSerial.value;
+
+    var port = new SerialPort({
+        path: path,
+        baudRate: 57600,
+        dataBits: 8,
+        parity: 'none'
+    });
+
+    port.on('open', () => { console.log('Opened ', + port.baudRate + port.path) });
+    return port;
+});
 
 
-let j = 0;
-let jj = 60;
-let l;
+
+
+
 port.on('data', function (data) {
     console.log(j);
 
@@ -1087,20 +1116,44 @@ port.on('data', function (data) {
             break;
         case 52:
             console.log(data.toString('hex'));
+            decoder(data.toString('hex').slice(6, 10), data, j);
+            fs.appendFile('test.txt', answerSTR + '\n', function() {
+                console.log(answerSTR);
+            });
+            txt.push(answerSTR);
             break;
         case jj:
             console.log(data.toString('hex'));
-            decoder(data.toString('hex').slice(6, 10));
+            decoder(data.toString('hex').slice(6, 10), data, j);
             shimValues[j-60].value = answerSTR;
             j = j + 1;
             jj = jj +1;
             break;
+        case jjj:
+            console.log(data.toString('hex'));
+            // decoder(data.toString('hex').slice(6, 10), data, j);
+            // txtIncome[j-100].value = answerSTR;
+            j = j + 1; 
+            jjj = jjj + 1;
+            break;
+        case j300:
+            console.log(data.toString('hex'));
+            decoder(data.toString('hex').slice(6, 10), data, j);
+            checkReadFieldInsyde[j-300].value = answerSTR;
+            j = j + 1;
+            j300 = j300 + 1;
+            break;
+        case 400:
+            console.log(data.toString('hex'));
+            break;
         default:
             console.log(data.toString('hex'));
-            decoder(data.toString('hex').slice(6, 10));
+            decoder(data.toString('hex').slice(6, 10), data, j);
             sensorValues[j].value = answerSTR;
             j = j + 1;
             break;
     }
     
 });
+
+

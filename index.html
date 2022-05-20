@@ -37,10 +37,10 @@
 
         <div>
           <h6 id="h666666">Чтение</h6>
-          <button class="buttonRead" id="buttonS">Read registers 1-7</button>
-          <button class="buttonRefresh" id="buttonRefresh1">Refresh</button>
+          <button class="buttonRead" id="buttonS">Прочитать регистры 1-7</button>
+          <button class="buttonRefresh" id="buttonRefresh1">Обновить</button>
           <input class="checkBox" id="check1" type="checkbox" checked>
-          <label for="check1">Ready to read</label>
+          <label for="check1">Готово к чтению</label>
         </div>
         
       </div>
@@ -144,10 +144,10 @@
 
         <div>
           <h6 class="header" id="h66666666">Чтение</h6>
-          <button class="buttonRead" id="buttonS2">Read registers 8-17</button>
-          <button class="buttonRefresh" id="buttonRefresh2">Refresh</button>
+          <button class="buttonRead" id="buttonS2">Прочитать регистры 8-17</button>
+          <button class="buttonRefresh" id="buttonRefresh2">Обновить</button>
           <input class="checkBox" id="check2" type="checkbox" checked>
-          <label for="check2">Ready to read</label>
+          <label for="check2">Готово к чтению</label>
         </div>
 
       </div>
@@ -234,10 +234,10 @@
       <h4 class="header">Данные для чтения</h4>
       <div class="inputSensor" id="input_2">
         <h6 id="h666666666">Чтение</h6>
-        <button class="buttonRead" id="buttonS3">Read registers 18-48</button>
-        <button class="buttonRefresh" id="buttonRefresh3">Refresh</button>
+        <button class="buttonRead" id="buttonS3">Прочитать регистры 18-48</button>
+        <button class="buttonRefresh" id="buttonRefresh3">Обновить</button>
         <input class="checkBox" id='check3' type="checkbox" checked>
-        <label for="check3">Ready to read</label>
+        <label for="check3">Готово к чтению</label>
       </div>
       
 
@@ -502,10 +502,10 @@
 
         <div>
           <h6 class="header" id="h6666"> Чтение</h6>
-          <button class="buttonRead" id="buttonS4">Read all</button>
-          <button class="buttonRefresh" id="buttonRefresh4">Refresh</button>
+          <button class="buttonRead" id="buttonS4">Прочитать все</button>
+          <button class="buttonRefresh" id="buttonRefresh4">Обновить</button>
           <input class="checkBox" id="check4" type="checkbox" checked>
-          <label for="check4">Ready to read</label>
+          <label for="check4">Готово к чтению</label>
         </div>
 
       </div>
@@ -871,31 +871,487 @@
 
     <div class="shimLines">
 
-      <h4 class="header">Граифки ШИМ</h4>
+      <h4 class="header">Запись законов ШИМ</h4>
 
-      <div>
-        <button id="draw">Draw</button>
-        <button id="pageRead">Send</button>
-      </div>
+      
 
-      <div class="graphicsLine">
-        <canvas class="graphics" id="myChart1"></canvas>
-        <canvas class="graphics" id="myChart2"></canvas>
-      </div>
+      <div class="writeFromTxt">
 
-      <div class="graphicsLine">
-        <canvas class="graphics" id="myChart3"></canvas>
-        <canvas class="graphics" id="myChart4"></canvas>
+        <h5>Запись из документа</h5>
+
+        <div class="writeLaw">
+          <button id="buttonReadTxt">Прочитать файл</button>
+          <button id="buttonWriteFromTxt">Записать закон</button>
+          <input class="shimNumber" id="shimNumber" placeholder="№ ШИМ (1-8)">
+          <button id="flash">Отправить закон во флэш</button>
+          <input class="checkBox" id="check5" type="checkbox" checked>
+          <label for="check5">Готово к записи/чтению</label>
+        </div>
+
+        <div class="txtIncomeBlock">
+
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 1">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 2">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 3">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 4">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 5">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 6">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 7">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 8">
+          </div>
+  
+        </div>
+  
+        <div class="txtIncomeBlock">
+  
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 9">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 10">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 11">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 12">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 13">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 14">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 15">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 16">
+          </div>
+  
+        </div>
+  
+        <div class="txtIncomeBlock">
+  
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 17">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 18">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 19">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 20">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 21">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 22">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 23">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 24">
+          </div>
+  
+        </div>
+  
+        <div class="txtIncomeBlock">
+  
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 25">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 26">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 27">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 28">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 29">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 30">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 31">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 32">
+          </div>
+  
+        </div>
+  
+        <div class="txtIncomeBlock">
+  
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 33">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 34">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 35">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 36">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 37">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 38">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 39">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 40">
+          </div>
+  
+        </div>
+  
+        <div class="txtIncomeBlock">
+  
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 41">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 42">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 43">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 44">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 45">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 46">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 47">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 48">
+          </div>
+  
+        </div>
+  
+        <div class="txtIncomeBlock">
+  
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 49">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 50">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 51">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 52">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 53">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 54">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 55">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 56">
+          </div>
+  
+        </div>
+  
+        <div class="txtIncomeBlock">
+  
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 57">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 58">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 59">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 60">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 61">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 62">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 63">
+          </div>
+          <div class="txtIncomeBlockField">
+            <input class="txtIncome" placeholder="Ref 64">
+          </div>
+  
+        </div>
+
+
+
       </div>
       
-      <div class="graphicsLine">
-        <canvas class="graphics" id="myChart5"></canvas>
-        <canvas class="graphics" id="myChart6"></canvas>
-      </div>
 
-      <div class="graphicsLine">
-        <canvas class="graphics" id="myChart7"></canvas>
-        <canvas class="graphics" id="myChart8"></canvas>
+      <div class="checkRead">
+
+        <h5>Проверка содержимого</h5>
+
+        <div class="readLaw">
+          <button id="checkReadBtn">Прочитать содержимое</button>
+          <input class="shimNumber2" id="shimNumber2" placeholder="№ ШИМ (1-8)">
+          <input class="checkBox" id="check6" type="checkbox" checked>
+          <label for="check6">Готово к записи/чтению</label>
+        </div>
+
+        <div class="readingBlock">
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 1">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 2">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 3">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 4">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 5">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 6">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 7">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 8">
+          </div>
+        </div>
+
+        <div class="readingBlock">
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 9">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 10">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 11">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 12">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 13">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 14">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 15">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 16">
+          </div>
+        </div>
+
+        <div class="readingBlock">
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 17">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 18">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 19">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 20">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 21">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 22">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 23">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 24">
+          </div>
+        </div>
+
+        <div class="readingBlock">
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 25">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 26">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 27">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 28">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 29">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 30">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 31">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 32">
+          </div>
+        </div>
+
+        <div class="readingBlock">
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 33">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 34">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 35">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 36">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 37">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 38">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 39">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 40">
+          </div>
+        </div>
+
+        <div class="readingBlock">
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 41">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 42">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 43">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 44">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 45">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 46">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 47">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 48">
+          </div>
+        </div>
+
+        <div class="readingBlock">
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 49">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 50">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 51">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 52">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 53">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 54">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 55">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 56">
+          </div>
+        </div>
+
+        <div class="readingBlock">
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 57">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 58">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 59">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 60">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 61">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 62">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 63">
+          </div>
+          <div class="checkReadField">
+            <input class="checkReadFieldInsyde" placeholder="Ref 64">
+          </div>
+        </div>
+
       </div>
 
 
